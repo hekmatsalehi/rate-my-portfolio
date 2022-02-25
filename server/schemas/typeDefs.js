@@ -7,7 +7,8 @@ type User {
     email: String
     password: String
     profilePicture: String
-    
+    followers: [User]!
+    followings: [User]!
     portfolios: [Portfolio]!
   }
 

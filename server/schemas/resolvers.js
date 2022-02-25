@@ -4,7 +4,10 @@ const { signToken } = require('../utils/auth');
 const resolvers = {
     Query: {
         users: async () => {
-          return User.find().populate('portfolio');
+          return User.find()
+            .populate('portfolio')
+            .populate('followers')
+            .populate('followings');
         },
     },
     Mutation: {
