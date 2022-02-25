@@ -36,12 +36,16 @@ type User {
 
   type Query {
     users: [User]
-
+    user(username: String!): User
+    portfolios(username: String!): [Portfolio]
+    portfolio(portfolioId: ID!): Portfolio
+    me: User
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Auth
-
+    addUser(username: String!, email: String!, password: String!, profilePicture: String): Auth
+    login(email: String!, password: String!): Auth
+    addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
   }
 `;
 
