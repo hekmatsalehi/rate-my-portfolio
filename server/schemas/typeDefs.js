@@ -7,9 +7,9 @@ type User {
     email: String
     password: String
     profilePicture: String
-    followers: [User]!
-    followings: [User]!
-    portfolios: [Portfolio]!
+    followers: [User]
+    followings: [User]
+    portfolios: [Portfolio]
   }
 
   type Portfolio {
@@ -43,7 +43,7 @@ type User {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, profilePicture: String): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
   }
