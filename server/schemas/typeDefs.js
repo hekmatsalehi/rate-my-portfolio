@@ -43,7 +43,7 @@ type User {
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, profilePicture: String): Auth
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
   }
