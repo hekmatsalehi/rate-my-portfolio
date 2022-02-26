@@ -7,9 +7,9 @@ type User {
     email: String
     password: String
     profilePicture: String
-    followers: [User]!
-    followings: [User]!
-    portfolios: [Portfolio]!
+    followers: [User]
+    followings: [User]
+    portfolios: [Portfolio]
   }
 
   type Portfolio {
