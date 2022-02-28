@@ -3,12 +3,12 @@ import './styles/output.css'
 
 import Home from './components/Home'
 import Navbar from './components/Navbar'
-import Profile from './components/Profile'
+import ProfilePage from './components/ProfilePage'
 export default function App() {
   return (
     <main>
       <Navbar />
-      <Profile /> 
+      <ProfilePage /> 
     </main>
   );
 }
