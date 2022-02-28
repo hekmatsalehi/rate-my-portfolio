@@ -1,5 +1,8 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
+const Feedback = require('./Feedback')
+const Rating = require('./Rating')
+
 
 const portfolioSchema = new Schema({
   portfolioAuthor: {
@@ -29,25 +32,10 @@ const portfolioSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  feedbacks: [
-    {
-      feedbackText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-      },
-      feedbackAuthor: {
-        type: String,
-        required: true
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: (timestamp) => dateFormat(timestamp),
-      },
-    },
-  ],
+
+  ratings: [Rating],
+  feedbacks: [Feedback],
+
 });
 
 const Portfolio = model('Portfolio', portfolioSchema);
