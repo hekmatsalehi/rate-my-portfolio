@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Signup() {
     return (
-    <div class="bg-home-img bg-fixed bg-cover bg-center flex items-center min-h-screen">
+    <div class="bg-slate-600 bg-fixed bg-cover bg-center flex items-center min-h-screen">
       <div class="flex-1 h-full max-w-lg mx-auto opacity-95 bg-white rounded-lg shadow-xl">
         <div class="flex flex-col md:flex-row">
           <div class="md:flex-1 md:h-full md:max-w-lg md:mx-auto items-center justify-center p-6 sm:p-12 md:w-1/2">
