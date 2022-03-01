@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Portfolio } = require('../models');
 const { signToken } = require('../utils/auth');
+
 const resolvers = {
     Query: {
         users: async () => {
@@ -76,7 +77,80 @@ const resolvers = {
           throw new AuthenticationError('You need to be logged in!');
         },
 
-      },     
-};
+        
+        addRating: async (parent, { portfolioId, ratingNumber }, context) => {
+          if (context.user) {
+            return Portfolio.findOneAndUpdate(
+              { _id: portfolioId },
+              {
+                $addToSet: {
+                  ratings: { ratingNumber, ratingAuthor: context.user.username },
+                },
+              },
+              {
+                new: true,
+                runValidators: true,
+              }
+              );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
 
+        removeRating: async (parent, { portfolioId, ratingId }, context) => {
+          if (context.user) {
+            return Portfolio.findOneAndUpdate(
+              { _id: portfolioId },
+              {
+                $pull: {
+                  ratings: {
+                    _id: ratingId,
+                    ratingAuthor: context.user.username,
+                  },
+                },
+              },
+              { new: true }
+              );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+          },
+          
+        addFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+          if (context.user) {
+            return Portfolio.findOneAndUpdate(
+              { _id: portfolioId },
+              {
+                $addToSet: {
+                  feedbacks: { feedbackText, feedbackAuthor: context.user.username },
+                },
+              },
+              {
+                new: true,
+                runValidators: true,
+              }
+            );
+          }
+          throw new AuthenticationError('You need to be logged in!');
+        },
+        
+        removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
+          if (context.user) {
+            return Portfolio.findOneAndUpdate(
+              { _id: portfolioId },
+              {
+                $pull: {
+                  feedbacks: {
+                    _id: feedbackId,
+                    feedbackAuthor: context.user.username,
+                  },
+                },
+              },
+              { new: true }
+              );
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
+            
+      },     
+    };
+          
 module.exports = resolvers;

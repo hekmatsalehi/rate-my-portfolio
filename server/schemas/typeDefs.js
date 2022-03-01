@@ -18,14 +18,22 @@ type User {
     portfolioText: String
     portfolioImage: String
     portfolioLink: String
-    createdAt: String
+    ratings: [Rating]
     feedbacks: [Feedback]!
+    createdAt: String
   }
 
   type Feedback {
     _id: ID
     feedbackText: String
     feedbackAuthor: String
+    createdAt: String
+  }
+
+  type Rating {
+    _id: ID
+    ratingAuthor: String
+    ratingNumber: Int
     createdAt: String
   }
 
@@ -37,7 +45,7 @@ type User {
   type Query {
     users: [User]
     user(username: String!): User
-    portfolios(username: String!): [Portfolio]
+    portfolios(username: String): [Portfolio]
     portfolio(portfolioId: ID!): Portfolio
     me: User
   }
@@ -46,6 +54,14 @@ type User {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
+
+    addRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
+    addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
+
+    updateRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
+    
+    removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
+    removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
   }
 `;
 
