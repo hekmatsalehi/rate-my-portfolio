@@ -97,6 +97,24 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
+    updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $set: {
+              ratings: { ratingNumber, ratingAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
     removeRating: async (parent, { portfolioId, ratingId }, context) => {
       if (context.user) {
         return Portfolio.findOneAndUpdate(
@@ -122,6 +140,27 @@ const resolvers = {
           {
             $addToSet: {
               feedbacks: { feedbackText, feedbackAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    // Update the feedback based on the username of the loggedIn user
+    // Problem is that if the user has multiple feedback it will updated all of them
+    // Need to update based on feedbackId
+    updateFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $set: {
+              feedbacks: { feedbackText, feedbackAuthor: context.user.username, },
             },
           },
           {
@@ -174,12 +213,38 @@ const resolvers = {
     },
 
     // NOT WORKING
-    updatePortfolio: async (parent, args, context) => {
-      if (context.user) {
-        return await Portfolio.findByIdAndUpdate(context.user._id, args, { new: true });
-      }
+    // updatePortfolio: async (parent, args, context) => {
+    //   if (context.user) {
+    //     return await Portfolio.findByIdAndUpdate(context.user._id, args, { new: true });
+    //   }
 
-      throw new AuthenticationError('Not logged in');
+    //   throw new AuthenticationError('Not logged in');
+    // },
+
+    // Not working perfectly updates other users portfolio too, Should have condition that the user only update his/her portfolio
+    updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
+      if (context.user) {
+        const portfolio = await Portfolio.findOneAndUpdate(
+          {_id: portfolioId},
+          { $set: {     
+            portfolioText,
+            portfolioImage,
+            portfolioLink,
+            portfolioAuthor: context.user.username, } },
+        );
+
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $set: { portfolios: portfolio._id } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+
+        return portfolio;
+      }
+      throw new AuthenticationError('You need to be logged in');
     },
 
   }

@@ -59,7 +59,8 @@ type User {
     addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
 
     updateRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
-    
+    updateFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
+
     removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
     removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
 
@@ -67,7 +68,7 @@ type User {
     updateUser(username: String, email: String, password: String): User
 
     removePortfolio(portfolioId: ID!): Portfolio
-    updatePortfolio(portfolioId: ID, portfolioText: String, portfolioImage: String, portfolioLink: String): Portfolio
+    updatePortfolio(portfolioId: ID!, portfolioText: String, portfolioImage: String, portfolioLink: String): Portfolio
   }
 `;
 
