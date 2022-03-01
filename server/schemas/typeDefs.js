@@ -64,10 +64,10 @@ type User {
     removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
 
     removeUser(userId: ID!): User
-    updateUser(username: String!, email: String!, password: String!): Auth
+    updateUser(username: String, email: String, password: String): User
 
     removePortfolio(portfolioId: ID!): Portfolio
-    # updatePortfolio....
+    updatePortfolio(portfolioId: ID, portfolioText: String, portfolioImage: String, portfolioLink: String): Portfolio
   }
 `;
 
