@@ -62,6 +62,12 @@ type User {
     
     removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
     removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
+
+    removeUser(userId: ID!): User
+    updateUser(username: String!, email: String!, password: String!): Auth
+
+    removePortfolio(portfolioId: ID!): Portfolio
+    # updatePortfolio....
   }
 `;
 
