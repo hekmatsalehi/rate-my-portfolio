@@ -221,28 +221,34 @@ const resolvers = {
     //   throw new AuthenticationError('Not logged in');
     // },
 
-    // Not working perfectly updates other users portfolio too, Should have condition that the user only update his/her portfolio
+    // Update the portfolio of the user who is loggedIn
     updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
-        const portfolio = await Portfolio.findOneAndUpdate(
-          {_id: portfolioId},
-          { $set: {     
-            portfolioText,
-            portfolioImage,
-            portfolioLink,
-            portfolioAuthor: context.user.username, } },
-        );
-
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $set: { portfolios: portfolio._id } },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-
-        return portfolio;
+        const portfolio = await Portfolio.findById({_id: portfolioId})
+        console.log(`This is portfolio ${portfolio}`)
+        if (context.user.username == portfolio.portfolioAuthor) {
+          await portfolio.updateOne(
+            {     
+              portfolioText,
+              portfolioImage,
+              portfolioLink,
+              portfolioAuthor: context.user.username, },
+              {
+                new: true,
+                runValidators: true,
+              }
+          );
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $set: { portfolios: portfolio._id } },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+          return portfolio;
+        }
+        throw new AuthenticationError('You can only updated your portfolio');
       }
       throw new AuthenticationError('You need to be logged in');
     },
