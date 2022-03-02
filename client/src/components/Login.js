@@ -22,7 +22,7 @@ export default function Login() {
                                 id="password" type="password" placeholder="Password" />
                         </div>
                         <div class="flex items-center justify-between">   
-                            <NavLink to="/ProfilePage"
+                            <NavLink to="/ProfileSummary"
                                 class="bg-gray-200 hover:bg-blue-500 hover:text-white text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
                                 id="login-button" type="button">
                                 Sign In
