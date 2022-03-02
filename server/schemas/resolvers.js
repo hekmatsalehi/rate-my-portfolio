@@ -105,16 +105,6 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in!');
     },
 
-    // NOT WORKING
-    // updatePortfolio: async (parent, args, context) => {
-    //   if (context.user) {
-    //     return await Portfolio.findByIdAndUpdate(context.user._id, args, { new: true });
-    //   }
-
-    //   throw new AuthenticationError('Not logged in');
-    // },
-
-    // Update the portfolio of the user who is loggedIn
     updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.findById({ _id: portfolioId })
@@ -245,7 +235,7 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    
+    // Shows it is passing the feedbackId but not actually deleting
     removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
       if (context.user) {
         return Portfolio.findOneAndUpdate(

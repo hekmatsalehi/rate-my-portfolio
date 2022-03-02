@@ -18,9 +18,11 @@ const portfolioSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
+
+  // Changed required to false --> Updating will not be allowed otherwise
   portfolioImage: {
     type: String,
-    required: true,
+    required: false,
   },
   portfolioLink: {
     type: String,
