@@ -51,24 +51,27 @@ type User {
   }
 
   type Mutation {
+    # USER
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
-
-    addRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
-    addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
-
-    updateRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
-    updateFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
-
-    removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
-    removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
-
-    removeUser(userId: ID!): User
     updateUser(username: String, email: String, password: String): User
+    removeUser(userId: ID!): User
 
+    # PORTFOLIO
+    addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
     removePortfolio(portfolioId: ID!): Portfolio
     updatePortfolio(portfolioId: ID!, portfolioText: String, portfolioImage: String, portfolioLink: String): Portfolio
+
+    # RATING
+    addRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
+    removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
+    updateRating(portfolioId: ID!, ratingNumber: Int!, ratingId: ID!): Portfolio
+
+    # FEEDBACK
+    addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
+    removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
+    updateFeedback(portfolioId: ID!, feedbackText: String!, feedbackId: ID!): Portfolio
+
   }
 `;
 
