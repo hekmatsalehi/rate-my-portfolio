@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Portfolio } = require('../models');
 const { signToken } = require('../utils/auth');
+const mongoose = require('mongoose')
 
 const resolvers = {
   Query: {
@@ -133,10 +134,12 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    addFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+    addFeedback: async (parent, { portfolioId, feedbackText}, context) => {
       if (context.user) {
         return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
+          {
+            _id: portfolioId,
+          },
           {
             $addToSet: {
               feedbacks: { feedbackText, feedbackAuthor: context.user.username },
@@ -151,16 +154,17 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    // Update the feedback based on the username of the loggedIn user
-    // Problem is that if the user has multiple feedback it will updated all of them
-    // Need to update based on feedbackId
-    updateFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+    updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId  }, context) => {
       if (context.user) {
+        console.log(feedbackId)
         return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
           {
-            $set: {
-              feedbacks: { feedbackText, feedbackAuthor: context.user.username, },
+          _id: portfolioId,
+          "feedbacks._id": feedbackId
+          },
+          {
+           $set: {
+               'feedbacks.$[].feedbackText': feedbackText
             },
           },
           {
@@ -224,19 +228,20 @@ const resolvers = {
     // Update the portfolio of the user who is loggedIn
     updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
-        const portfolio = await Portfolio.findById({_id: portfolioId})
+        const portfolio = await Portfolio.findById({ _id: portfolioId })
         console.log(`This is portfolio ${portfolio}`)
         if (context.user.username == portfolio.portfolioAuthor) {
           await portfolio.updateOne(
-            {     
+            {
               portfolioText,
               portfolioImage,
               portfolioLink,
-              portfolioAuthor: context.user.username, },
-              {
-                new: true,
-                runValidators: true,
-              }
+              portfolioAuthor: context.user.username,
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
           );
           await User.findOneAndUpdate(
             { _id: context.user._id },
