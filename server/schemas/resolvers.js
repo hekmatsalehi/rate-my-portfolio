@@ -36,6 +36,8 @@ const resolvers = {
   },
 
   Mutation: {
+
+    // USER
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
@@ -61,6 +63,22 @@ const resolvers = {
       return { token, user };
     },
 
+    removeUser: async (parent, { userId }, context) => {
+      if (context.user) {
+        return User.findOneAndDelete({ _id: userId });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    updateUser: async (parent, args, context) => {
+      if (context.user) {
+        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+
+    // PORTFOLIO
     addPortfolio: async (parent, { portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.create({
@@ -78,135 +96,6 @@ const resolvers = {
         return portfolio;
       }
       throw new AuthenticationError('You need to be logged in');
-    },
-
-    addRating: async (parent, { portfolioId, ratingNumber }, context) => {
-      if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
-          {
-            $addToSet: {
-              ratings: { ratingNumber, ratingAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
-      if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
-          {
-            $set: {
-              ratings: { ratingNumber, ratingAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    removeRating: async (parent, { portfolioId, ratingId }, context) => {
-      if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
-          {
-            $pull: {
-              ratings: {
-                _id: ratingId,
-                ratingAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    addFeedback: async (parent, { portfolioId, feedbackText}, context) => {
-      if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          {
-            _id: portfolioId,
-          },
-          {
-            $addToSet: {
-              feedbacks: { feedbackText, feedbackAuthor: context.user.username },
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId  }, context) => {
-      if (context.user) {
-        console.log(feedbackId)
-        return Portfolio.findOneAndUpdate(
-          {
-          _id: portfolioId,
-          "feedbacks._id": feedbackId
-          },
-          {
-           $set: {
-               'feedbacks.$[].feedbackText': feedbackText
-            },
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
-      if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
-          {
-            $pull: {
-              feedbacks: {
-                _id: feedbackId,
-                feedbackAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
-      }
-      throw new AuthenticationError('You need to be logged in');
-    },
-
-    removeUser: async (parent, { userId }, context) => {
-      if (context.user) {
-        return User.findOneAndDelete({ _id: userId });
-      }
-      throw new AuthenticationError('You need to be logged in!');
-    },
-
-    updateUser: async (parent, args, context) => {
-      if (context.user) {
-        return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-      }
-
-      throw new AuthenticationError('Not logged in');
     },
 
     removePortfolio: async (parent, { portfolioId }, context) => {
@@ -258,7 +147,148 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-  }
-};
+    // RATING
+    addRating: async (parent, { portfolioId, ratingNumber }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $addToSet: {
+              ratings: { ratingNumber, ratingAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    removeRating: async (parent, { portfolioId, ratingId }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $pull: {
+              ratings: {
+                _id: ratingId,
+                ratingAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+          );
+        }
+        throw new AuthenticationError('You need to be logged in');
+      },
+      
+    // updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
+    //   if (context.user) {
+    //     return Portfolio.findOneAndUpdate(
+    //       { _id: portfolioId },
+    //       {
+    //         $set: {
+    //           ratings: { ratingNumber, ratingAuthor: context.user.username },
+    //         },
+    //       },
+    //       {
+    //         new: true,
+    //         runValidators: true,
+    //       }
+    //     );
+    //   }
+    //   throw new AuthenticationError('You need to be logged in');
+    // },
+
+    updateRating: async (parent, { portfolioId, ratingNumber, ratingId }, context) => {
+      if (context.user) {
+        console.log(ratingId)
+        return Portfolio.findOneAndUpdate(
+          {
+            _id: portfolioId,
+            "ratings._id": ratingId
+          },
+          {
+            $set: {
+              'ratings.$[].ratingNumber': ratingNumber
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    // FEEDBACK
+    addFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          {
+            _id: portfolioId,
+          },
+          {
+            $addToSet: {
+              feedbacks: { feedbackText, feedbackAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError('You need to be logged in');
+    },
+
+    
+    removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $pull: {
+              feedbacks: {
+                _id: feedbackId,
+                feedbackAuthor: context.user.username,
+              },
+            },
+          },
+          { new: true }
+          );
+        }
+        throw new AuthenticationError('You need to be logged in');
+      },
+
+      updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId }, context) => {
+        if (context.user) {
+          console.log(feedbackId)
+          return Portfolio.findOneAndUpdate(
+            {
+              _id: portfolioId,
+              "feedbacks._id": feedbackId
+            },
+            {
+              $set: {
+                'feedbacks.$[].feedbackText': feedbackText
+              },
+            },
+            {
+              new: true,
+              runValidators: true,
+            }
+          );
+        }
+        throw new AuthenticationError('You need to be logged in');
+      },
+      
+      
+      
+    }
+  };
 
 module.exports = resolvers;
