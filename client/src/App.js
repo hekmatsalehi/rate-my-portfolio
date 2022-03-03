@@ -7,7 +7,7 @@ import Login from './components/Login';
 import SignUp from './components/Signup'
 import ProfileSummary from './components/ProfileSummary';
 import './styles/output.css'
-
+import Feedback from './components/Feedback';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
