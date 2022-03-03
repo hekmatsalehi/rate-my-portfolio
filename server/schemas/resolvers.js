@@ -174,35 +174,13 @@ const resolvers = {
         throw new AuthenticationError('You need to be logged in');
       },
       
-    // updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
-    //   if (context.user) {
-    //     return Portfolio.findOneAndUpdate(
-    //       { _id: portfolioId },
-    //       {
-    //         $set: {
-    //           ratings: { ratingNumber, ratingAuthor: context.user.username },
-    //         },
-    //       },
-    //       {
-    //         new: true,
-    //         runValidators: true,
-    //       }
-    //     );
-    //   }
-    //   throw new AuthenticationError('You need to be logged in');
-    // },
-
-    updateRating: async (parent, { portfolioId, ratingNumber, ratingId }, context) => {
+    updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
       if (context.user) {
-        console.log(ratingId)
         return Portfolio.findOneAndUpdate(
-          {
-            _id: portfolioId,
-            "ratings._id": ratingId
-          },
+          { _id: portfolioId },
           {
             $set: {
-              'ratings.$[].ratingNumber': ratingNumber
+              ratings: { ratingNumber, ratingAuthor: context.user.username },
             },
           },
           {
