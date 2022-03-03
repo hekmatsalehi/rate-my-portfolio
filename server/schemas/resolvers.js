@@ -235,7 +235,6 @@ const resolvers = {
       throw new AuthenticationError('You need to be logged in');
     },
 
-    // Shows it is passing the feedbackId but not actually deleting
     removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
       if (context.user) {
         return Portfolio.findOneAndUpdate(
@@ -256,22 +255,23 @@ const resolvers = {
 
       updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId }, context) => {
         if (context.user) {
-          console.log(feedbackId)
-          return Portfolio.findOneAndUpdate(
+    
+          let portfolioData = await Portfolio.findById(
             {
               _id: portfolioId,
-              "feedbacks._id": feedbackId
-            },
-            {
-              $set: {
-                'feedbacks.$[].feedbackText': feedbackText
-              },
-            },
-            {
-              new: true,
-              runValidators: true,
             }
           );
+          let modElement = portfolioData.feedbacks.map((feedback)=>{
+            console.log("265", feedback)
+            if(feedback._id == feedbackId){
+              return Object.assign(feedback, {feedbackText})
+            }
+            return feedback
+          } )
+
+          return Portfolio.findByIdAndUpdate({
+            _id: portfolioId,
+          },{feedbacks:modElement})
         }
         throw new AuthenticationError('You need to be logged in');
       },
