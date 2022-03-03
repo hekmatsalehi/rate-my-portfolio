@@ -65,7 +65,7 @@ type User {
     # RATING
     addRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
     removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
-    updateRating(portfolioId: ID!, ratingNumber: Int!, ratingId: ID!): Portfolio
+    updateRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
 
     # FEEDBACK
     addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio
