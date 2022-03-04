@@ -41,7 +41,7 @@ export default function Overlay() {
                   <div className="relative h-40 sm:h-56">
                           <img
                             className="absolute h-full w-full object-cover rounded-full mt-2"
-                            src="https://images.unsplash.com/photo-1501031170107-cfd33f0cbdcc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&h=600&q=80"
+                            src="https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425__340.png"
                             alt=""
                           />
                         </div>

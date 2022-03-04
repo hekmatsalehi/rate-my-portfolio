@@ -3,7 +3,7 @@ import { HomeIcon } from '@heroicons/react/solid'
 
 const userName= 'User Name Will go Here'
 const link = 'porfolio link will go here'
-const avatar= "https://ca.slack-edge.com/T2YPRNTU0-UHZC1NA79-c285638cc642-512"
+const avatar= "https://cdn.pixabay.com/photo/2018/08/28/12/41/avatar-3637425__340.png"
 
 
 
