@@ -74,8 +74,9 @@ type User {
     removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
     updateFeedback(portfolioId: ID!, feedbackText: String!, feedbackId: ID!): Portfolio
 
-    # AddFOLLOWER
+    # FOLLOW/UnFOLLOW
     followUser(userId: ID!): User
+    unfollowUser(userId: ID!): User
   }
 `;
 
