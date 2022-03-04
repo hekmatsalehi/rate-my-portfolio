@@ -8,6 +8,12 @@ import SignUp from './components/Signup'
 import ProfileSummary from './components/ProfileSummary';
 import './styles/output.css'
 import Feedback from './components/Feedback';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: '/graphql',
+  cache: new InMemoryCache(),
+});
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -37,7 +43,8 @@ class ErrorBoundary extends React.Component {
 
 class App extends Component {
   render() {
-    return (      
+    return (  
+      <ApolloProvider client={client}>    
        <BrowserRouter>
         <div>
           <ErrorBoundary>
@@ -52,6 +59,7 @@ class App extends Component {
             </ErrorBoundary>
         </div> 
       </BrowserRouter>
+      </ApolloProvider>
     );
   }
 }
