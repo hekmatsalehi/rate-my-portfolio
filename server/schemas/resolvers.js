@@ -1,7 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Portfolio } = require('../models');
 const { signToken } = require('../utils/auth');
-const mongoose = require('mongoose')
 
 const resolvers = {
   Query: {
@@ -33,6 +32,16 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in');
     },
+
+    followers: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return User.find(params).populate('followers').sort({ createdAt: -1 })
+    },
+
+    followings: async (parent, { username }) => {
+      const params = username ? { username } : {};
+      return User.find(params).populate('followings').sort({ createdAt: -1 })
+    }
   },
 
   Mutation: {
@@ -253,10 +262,38 @@ const resolvers = {
         }
         throw new AuthenticationError('You need to be logged in');
       },
-      
-      
-      
-    }
+
+      followUser: async (parent, { userId }, context) => {
+        if (context.user) {
+          const user = await User.find({ _id: context.user._id, followings: userId })
+          if(context.user._id == userId){
+            throw new AuthenticationError('You can not follow yourself');
+          }
+          if(user.length > 0) {
+            throw new AuthenticationError('You have already followed this user');
+          }
+         const updatedfollowings = await User.findOneAndUpdate(
+            { _id: context.user._id },
+            {$push: { followings: userId } },
+            {
+              new: true,
+              runValidators: true,
+            }
+          )
+          await User.findOneAndUpdate(
+            { _id: userId },
+            {$push: { followers: context.user._id  } },
+            {
+              new: true,
+              runValidators: true,
+            }
+          )
+          return updatedfollowings
+        }
+        throw new AuthenticationError('You need to be logged in');
+      },
+    },
+
   };
 
 module.exports = resolvers;

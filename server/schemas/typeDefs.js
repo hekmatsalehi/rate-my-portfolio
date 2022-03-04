@@ -48,6 +48,8 @@ type User {
     portfolios(username: String): [Portfolio]
     portfolio(portfolioId: ID!): Portfolio
     me: User
+    followers(username: String!): [User]
+    followings(username: String!): [User]
   }
 
   type Mutation {
@@ -72,6 +74,8 @@ type User {
     removeFeedback(portfolioId: ID!, feedbackId: ID!): Portfolio
     updateFeedback(portfolioId: ID!, feedbackText: String!, feedbackId: ID!): Portfolio
 
+    # AddFOLLOWER
+    followUser(userId: ID!): User
   }
 `;
 
