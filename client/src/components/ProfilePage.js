@@ -2,8 +2,9 @@
 import { HomeIcon } from '@heroicons/react/solid'
 
 
+
 const miniNav = [
-  { name: 'Edit Profile', href: '#', current: false },
+  { name: 'My Profile', href: '/ProfilePage', current: false },
 
 ]
 export default function ProfilePage() {
@@ -14,7 +15,7 @@ export default function ProfilePage() {
 
 
       {/*miniNav*/}
-      <nav className="hidden bg-slate-600 border-b border-gray-200 lg:flex" aria-label="Breadcrumb">
+      <nav className="hidden bg-slate-100 border-b border-gray-200 lg:flex" aria-label="Breadcrumb">
         <ol role="list" className="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
           <li className="flex">
             <div className="flex items-center">
@@ -46,6 +47,7 @@ export default function ProfilePage() {
                 </a>
               </div>
             </li>
+            
           ))}
         </ol>
       </nav>
@@ -161,14 +163,14 @@ export default function ProfilePage() {
 
 
             <div className="flex justify-end">
-              <button
+              <button onClick={cancel}
                 type="button"
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Cancel
               </button>
-              <button
-                type="submit"
+              <button 
+                type="button"
                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Save
@@ -180,3 +182,7 @@ export default function ProfilePage() {
     </>
   )
 }
+function cancel(e) {
+  e.preventDefault();
+  document.location.replace('/ProfileSummary')
+  }
