@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import ProfilePage from './components/ProfilePage';
-import Home from './components/Home';
-import Login from './components/Login';
-import SignUp from './components/Signup'
-import ProfileSummary from './components/ProfileSummary';
+import ProfilePage from './pages/ProfilePage';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import SignUp from './pages/Signup'
+import ProfileSummary from './pages/ProfileSummary';
 import './styles/output.css'
 import Feedback from './components/Feedback';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
