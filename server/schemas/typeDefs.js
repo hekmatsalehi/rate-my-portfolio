@@ -21,6 +21,7 @@ type User {
     ratings: [Rating]
     feedbacks: [Feedback]!
     createdAt: String
+    updatedAt: String
   }
 
   type Feedback {
@@ -28,6 +29,7 @@ type User {
     feedbackText: String
     feedbackAuthor: String
     createdAt: String
+    updatedAt: String
   }
 
   type Rating {
@@ -56,8 +58,8 @@ type User {
     # USER
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    updateUser(username: String, email: String, password: String): User
     removeUser(userId: ID!): User
+    updateUser(username: String, email: String, password: String): User
 
     # PORTFOLIO
     addPortfolio(portfolioText: String!, portfolioImage: String!, portfolioLink: String!): Portfolio
