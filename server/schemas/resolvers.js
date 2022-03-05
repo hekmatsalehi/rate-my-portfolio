@@ -160,6 +160,10 @@ const resolvers = {
     // Still can rate multiple times and on your own portfolio as well
     addRating: async (parent, { portfolioId, ratingNumber }, context) => {
       if (context.user) {
+        const portfolio = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == portfolio.portfolioAuthor) {
+          throw new AuthenticationError("You can not give rating to your portfolio");
+        }
         return Portfolio.findOneAndUpdate(
           { _id: portfolioId },
           {
