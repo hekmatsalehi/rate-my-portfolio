@@ -37,7 +37,6 @@ type User {
     ratingAuthor: String
     ratingNumber: Int
     createdAt: String
-    updatedAt: String
   }
 
   type Auth {
