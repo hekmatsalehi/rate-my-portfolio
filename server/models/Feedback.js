@@ -18,6 +18,11 @@ const feedbackSchema = new Schema(
             default: Date.now,
             get: (timestamp) => dateFormat(timestamp),
         },
+        updatedAt: {
+            type: Date,
+            default: Date.now,
+            get: (timestamp) => dateFormat(timestamp),
+        },
     },
 
 );

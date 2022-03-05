@@ -45,6 +45,7 @@ const resolvers = {
   },
 
   Mutation: {
+    
     // USER
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
@@ -55,27 +56,25 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       console.log(email);
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError("No user found with this email address");
       }
-
       const correctPw = await user.isCorrectPassword(password);
-
       if (!correctPw) {
         throw new AuthenticationError("Incorrect credentials");
       }
-
       const token = signToken(user);
-
       return { token, user };
     },
 
     removeUser: async (parent, { userId }, context) => {
       if (context.user) {
-        return User.findOneAndDelete({ _id: userId });
+        if (context.user._id == userId) {
+          return User.findOneAndDelete({ _id: userId });
+        }
+        throw new AuthenticationError('You can only delete your own account');
       }
-      throw new AuthenticationError("You need to be logged in!");
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     updateUser: async (parent, args, context) => {
@@ -84,16 +83,11 @@ const resolvers = {
           new: true,
         });
       }
-
-      throw new AuthenticationError("Not logged in");
+      throw new AuthenticationError("You need to be logged in");
     },
 
     // PORTFOLIO
-    addPortfolio: async (
-      parent,
-      { portfolioText, portfolioImage, portfolioLink },
-      context
-    ) => {
+    addPortfolio: async (parent, { portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.create({
           portfolioText,
@@ -101,12 +95,10 @@ const resolvers = {
           portfolioLink,
           portfolioAuthor: context.user.username,
         });
-
         await User.findOneAndUpdate(
           { _id: context.user._id },
           { $addToSet: { portfolios: portfolio._id } }
         );
-
         return portfolio;
       }
       throw new AuthenticationError("You need to be logged in");
@@ -114,16 +106,24 @@ const resolvers = {
 
     removePortfolio: async (parent, { portfolioId }, context) => {
       if (context.user) {
-        return Portfolio.findOneAndDelete({ _id: portfolioId });
+        const portfolio = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == portfolio.portfolioAuthor) {
+          const deletedPortfolio = await Portfolio.findOneAndDelete({
+            _id: portfolioId,
+            portfolioAuthor: context.user.username
+          });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { portfolios: portfolioId } }
+          );
+          return deletedPortfolio;
+        }
+        throw new AuthenticationError("You can only delete your own portfolio");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    updatePortfolio: async (
-      parent,
-      { portfolioId, portfolioText, portfolioImage, portfolioLink },
-      context
-    ) => {
+    updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.findById({ _id: portfolioId });
         console.log(`This is portfolio ${portfolio}`);
@@ -150,14 +150,20 @@ const resolvers = {
           );
           return portfolio;
         }
-        throw new AuthenticationError("You can only updated your portfolio");
+        throw new AuthenticationError("You can only update your portfolio");
       }
       throw new AuthenticationError("You need to be logged in");
     },
 
     // RATING
+
+    // Still can rate multiple times and on your own portfolio as well
     addRating: async (parent, { portfolioId, ratingNumber }, context) => {
       if (context.user) {
+        const portfolio = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == portfolio.portfolioAuthor) {
+          throw new AuthenticationError("You can not give rating to your portfolio");
+        }
         return Portfolio.findOneAndUpdate(
           { _id: portfolioId },
           {
@@ -174,23 +180,41 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
+    // Not working
     removeRating: async (parent, { portfolioId, ratingId }, context) => {
       if (context.user) {
-        return Portfolio.findOneAndUpdate(
-          { _id: portfolioId },
-          {
-            $pull: {
-              ratings: {
-                _id: ratingId,
-                ratingAuthor: context.user.username,
-              },
-            },
-          },
-          { new: true }
-        );
+        const rating = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == rating.ratingId) {
+          const deletedRating = await Rating.findOneAndDelete({
+            _id: ratingId,
+            ratingAuthor: context.user.username
+          });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { ratings: ratingId } }
+          );
+          return deletedRating
+        }
+        throw new AuthenticationError("You can only delete your own rating");
       }
-      throw new AuthenticationError("You need to be logged in");
+      throw new AuthenticationError('You need to be logged in!');
     },
+
+    // Previous code
+    // RemoveRating: async (parent, { portfolioId, ratingId }, context) => {
+    // if (context.user._id.portfolioId)
+    //   return Portfolio.findOneAndUpdate(
+    //     { _id: portfolioId },
+    //     {0
+    //       $pull: {
+    //         ratings: {
+    //           _id: ratingId,
+    //           ratingAuthor: context.user.username
+    //         },
+    //       },
+    //     },
+    //     { new: true }
+    //   );
 
     updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
       if (context.user) {
@@ -252,11 +276,7 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
-    updateFeedback: async (
-      parent,
-      { portfolioId, feedbackText, feedbackId },
-      context
-    ) => {
+    updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId }, context) => {
       if (context.user) {
         let portfolioData = await Portfolio.findById({
           _id: portfolioId,
@@ -292,7 +312,7 @@ const resolvers = {
         if (user.length > 0) {
           throw new AuthenticationError("You have already followed this user");
         }
-        const updatedfollowings = await User.findOneAndUpdate(
+        const updatedFollowings = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $push: { followings: userId } },
           {
@@ -308,7 +328,7 @@ const resolvers = {
             runValidators: true,
           }
         );
-        return updatedfollowings;
+        return updatedFollowings;
       }
       throw new AuthenticationError("You need to be logged in");
     },
@@ -316,7 +336,7 @@ const resolvers = {
     // Unfollow a user and updates their followers list
     unfollowUser: async (parent, { userId }, context) => {
       if (context.user) {
-        const updatedfollowings = await User.findOneAndUpdate(
+        const updatedFollowings = await User.findOneAndUpdate(
           { _id: context.user._id },
           { $pull: { followings: userId } },
           {
@@ -332,7 +352,7 @@ const resolvers = {
             runValidators: true,
           }
         );
-        return updatedfollowings;
+        return updatedFollowings;
       }
       throw new AuthenticationError("You need to be logged in");
     },
