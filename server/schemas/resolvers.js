@@ -45,6 +45,7 @@ const resolvers = {
   },
 
   Mutation: {
+    
     // USER
     addUser: async (parent, { username, email, password }) => {
       const user = await User.create({ username, email, password });
@@ -66,10 +67,12 @@ const resolvers = {
       return { token, user };
     },
 
-    // You can input any userId but it will only remove the user who is logged instead of throwing an error that states they need to be logged in
-    removeUser: async (parent, arg, context) => {
+    removeUser: async (parent, { userId }, context) => {
       if (context.user) {
-        return User.findOneAndDelete({ _id: context.user._id });
+        if (context.user._id == userId) {
+          return User.findOneAndDelete({ _id: userId });
+        }
+        throw new AuthenticationError('You can only delete your own account');
       }
       throw new AuthenticationError('You need to be logged in!');
     },
@@ -84,8 +87,6 @@ const resolvers = {
     },
 
     // PORTFOLIO
-
-    // Works
     addPortfolio: async (parent, { portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.create({
@@ -103,23 +104,25 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
-    // Will remove the portfolio of the user that is logged in, otherwise it just returns as null if it's another persons portfolioID, rather than throwing an error
     removePortfolio: async (parent, { portfolioId }, context) => {
       if (context.user) {
-        const portfolio = await Portfolio.findOneAndDelete({
-          _id: portfolioId,
-          portfolioAuthor: context.user.username
-        });
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $pull: { portfolios: portfolioId } }
-        );
-        return portfolio;
+        const portfolio = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == portfolio.portfolioAuthor) {
+          const deletedPortfolio = await Portfolio.findOneAndDelete({
+            _id: portfolioId,
+            portfolioAuthor: context.user.username
+          });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { portfolios: portfolioId } }
+          );
+          return deletedPortfolio;
+        }
+        throw new AuthenticationError("You can only delete your own portfolio");
       }
       throw new AuthenticationError("You need to be logged in!");
     },
 
-    // Works
     updatePortfolio: async (parent, { portfolioId, portfolioText, portfolioImage, portfolioLink }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.findById({ _id: portfolioId });
@@ -154,7 +157,7 @@ const resolvers = {
 
     // RATING
 
-    // Still can rate multiple times and your own portfolio (however, all social media websites let you rate your own posts)
+    // Still can rate multiple times and on your own portfolio as well
     addRating: async (parent, { portfolioId, ratingNumber }, context) => {
       if (context.user) {
         const portfolio = await Portfolio.findById({ _id: portfolioId });
@@ -177,167 +180,183 @@ const resolvers = {
       throw new AuthenticationError("You need to be logged in");
     },
 
-    // Will remove the rating of the user that is logged in, otherwise it is displaying the id that you attempted to remove from another user but it doesn't actually remove it --> does all of this instead of throwing an error
+    // Not working
     removeRating: async (parent, { portfolioId, ratingId }, context) => {
+      if (context.user) {
+        const rating = await Portfolio.findById({ _id: portfolioId });
+        if (context.user.username == rating.ratingId) {
+          const deletedRating = await Rating.findOneAndDelete({
+            _id: ratingId,
+            ratingAuthor: context.user.username
+          });
+          await User.findOneAndUpdate(
+            { _id: context.user._id },
+            { $pull: { ratings: ratingId } }
+          );
+          return deletedRating
+        }
+        throw new AuthenticationError("You can only delete your own rating");
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+
+    // Previous code
+    // RemoveRating: async (parent, { portfolioId, ratingId }, context) => {
+    // if (context.user._id.portfolioId)
+    //   return Portfolio.findOneAndUpdate(
+    //     { _id: portfolioId },
+    //     {0
+    //       $pull: {
+    //         ratings: {
+    //           _id: ratingId,
+    //           ratingAuthor: context.user.username
+    //         },
+    //       },
+    //     },
+    //     { new: true }
+    //   );
+
+    updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          { _id: portfolioId },
+          {
+            $set: {
+              ratings: { ratingNumber, ratingAuthor: context.user.username },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+
+    // FEEDBACK
+    addFeedback: async (parent, { portfolioId, feedbackText }, context) => {
+      if (context.user) {
+        return Portfolio.findOneAndUpdate(
+          {
+            _id: portfolioId,
+          },
+          {
+            $addToSet: {
+              feedbacks: {
+                feedbackText,
+                feedbackAuthor: context.user.username,
+              },
+            },
+          },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+
+    removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
       if (context.user) {
         return Portfolio.findOneAndUpdate(
           { _id: portfolioId },
           {
             $pull: {
-              ratings: {
-                _id: ratingId,
-                ratingAuthor: context.user.username
+              feedbacks: {
+                _id: feedbackId,
+                feedbackAuthor: context.user.username,
               },
             },
           },
           { new: true }
         );
       }
-      throw new AuthenticationError('You need to be logged in!');
+      throw new AuthenticationError("You need to be logged in");
     },
 
-    //Works
-    updateRating: async (parent, { portfolioId, ratingNumber }, context) => {
-    if (context.user) {
-      return Portfolio.findOneAndUpdate(
-        { _id: portfolioId },
-        {
-          $set: {
-            ratings: { ratingNumber, ratingAuthor: context.user.username },
-          },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    }
-    throw new AuthenticationError("You need to be logged in");
-  },
-
-  // FEEDBACK
-  addFeedback: async (parent, { portfolioId, feedbackText }, context) => {
-    if (context.user) {
-      return Portfolio.findOneAndUpdate(
-        {
+    updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId }, context) => {
+      if (context.user) {
+        let portfolioData = await Portfolio.findById({
           _id: portfolioId,
-        },
-        {
-          $addToSet: {
-            feedbacks: {
-              feedbackText,
-              feedbackAuthor: context.user.username,
-            },
+        });
+        let modElement = portfolioData.feedbacks.map((feedback) => {
+          console.log("265", feedback);
+          if (feedback._id == feedbackId) {
+            return Object.assign(feedback, { feedbackText });
+          }
+          return feedback;
+        });
+
+        return Portfolio.findByIdAndUpdate(
+          {
+            _id: portfolioId,
           },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    }
-    throw new AuthenticationError("You need to be logged in");
-  },
-
-  removeFeedback: async (parent, { portfolioId, feedbackId }, context) => {
-    if (context.user) {
-      return Portfolio.findOneAndUpdate(
-        { _id: portfolioId },
-        {
-          $pull: {
-            feedbacks: {
-              _id: feedbackId,
-              feedbackAuthor: context.user.username,
-            },
-          },
-        },
-        { new: true }
-      );
-    }
-    throw new AuthenticationError("You need to be logged in");
-  },
-
-  updateFeedback: async (parent, { portfolioId, feedbackText, feedbackId }, context) => {
-    if (context.user) {
-      let portfolioData = await Portfolio.findById({
-        _id: portfolioId,
-      });
-      let modElement = portfolioData.feedbacks.map((feedback) => {
-        console.log("265", feedback);
-        if (feedback._id == feedbackId) {
-          return Object.assign(feedback, { feedbackText });
-        }
-        return feedback;
-      });
-
-      return Portfolio.findByIdAndUpdate(
-        {
-          _id: portfolioId,
-        },
-        { feedbacks: modElement }
-      );
-    }
-    throw new AuthenticationError("You need to be logged in");
-  },
-
-  // Follow a user and updates their followers list
-  followUser: async (parent, { userId }, context) => {
-    if (context.user) {
-      const user = await User.find({
-        _id: context.user._id,
-        followings: userId,
-      });
-      if (context.user._id == userId) {
-        throw new AuthenticationError("You can not follow yourself");
+          { feedbacks: modElement }
+        );
       }
-      if (user.length > 0) {
-        throw new AuthenticationError("You have already followed this user");
-      }
-      const updatedFollowings = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $push: { followings: userId } },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      await User.findOneAndUpdate(
-        { _id: userId },
-        { $push: { followers: context.user._id } },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-      return updatedFollowings;
-    }
-    throw new AuthenticationError("You need to be logged in");
-  },
+      throw new AuthenticationError("You need to be logged in");
+    },
 
-  // Unfollow a user and updates their followers list
-  unfollowUser: async (parent, { userId }, context) => {
-    if (context.user) {
-      const updatedFollowings = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        { $pull: { followings: userId } },
-        {
-          new: true,
-          runValidators: true,
+    // Follow a user and updates their followers list
+    followUser: async (parent, { userId }, context) => {
+      if (context.user) {
+        const user = await User.find({
+          _id: context.user._id,
+          followings: userId,
+        });
+        if (context.user._id == userId) {
+          throw new AuthenticationError("You can not follow yourself");
         }
-      );
-      await User.findOneAndUpdate(
-        { _id: userId },
-        { $pull: { followers: context.user._id } },
-        {
-          new: true,
-          runValidators: true,
+        if (user.length > 0) {
+          throw new AuthenticationError("You have already followed this user");
         }
-      );
-      return updatedFollowings;
-    }
-    throw new AuthenticationError("You need to be logged in");
+        const updatedFollowings = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { followings: userId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        await User.findOneAndUpdate(
+          { _id: userId },
+          { $push: { followers: context.user._id } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        return updatedFollowings;
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
+
+    // Unfollow a user and updates their followers list
+    unfollowUser: async (parent, { userId }, context) => {
+      if (context.user) {
+        const updatedFollowings = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $pull: { followings: userId } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        await User.findOneAndUpdate(
+          { _id: userId },
+          { $pull: { followers: context.user._id } },
+          {
+            new: true,
+            runValidators: true,
+          }
+        );
+        return updatedFollowings;
+      }
+      throw new AuthenticationError("You need to be logged in");
+    },
   },
-},
 };
 
 module.exports = resolvers;
