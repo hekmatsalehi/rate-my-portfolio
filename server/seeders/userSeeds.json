@@ -1,0 +1,27 @@
+[
+  {
+    "username": "Tom Jerry",
+    "email": "tomjerry@jerry.com",
+    "password": "password01"
+  },
+  {
+    "username": "Khan Vira",
+    "email": "khan@khan.com",
+    "password": "password02"
+  },
+  {
+    "username": "Spider 3",
+    "email": "spider@spider.com",
+    "password": "password03"
+  },
+  {
+    "username": "Fantastic Four",
+    "email": "fantastic@four.com",
+    "password": "password04"
+  },
+  {
+    "username": "MongoDB",
+    "email": "monogodb@db.com",
+    "password": "password05"
+  }
+]
