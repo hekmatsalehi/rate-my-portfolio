@@ -8,8 +8,7 @@ const portfolioSchema = new Schema({
   portfolioAuthor: {
     type: String,
     required: true,
-    tirm: true
-
+    trim: true
   },
   portfolioText: {
     type: String,
@@ -18,8 +17,6 @@ const portfolioSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-
-  // Changed required to false --> Updating will not be allowed otherwise
   portfolioImage: {
     type: String,
     required: false,
@@ -28,8 +25,12 @@ const portfolioSchema = new Schema({
     type: String,
     trim: true
   },
-
   createdAt: {
+    type: Date,
+    default: Date.now,
+    get: (timestamp) => dateFormat(timestamp),
+  },
+  updatedAt: {
     type: Date,
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),

@@ -31,14 +31,12 @@ const userSchema = new Schema({
       ref: 'User',
     },
   ],
-
   followings: [
     {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },
   ],
-
   portfolios: [
     {
       type: Schema.Types.ObjectId,
