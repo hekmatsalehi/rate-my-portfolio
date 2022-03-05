@@ -88,7 +88,6 @@ const Signup = () => {
                   id="password-signup"
                   name= "password" 
                   placeholder="Password" 
-                  type="password" 
                   value={formState.password}
                   onChange={handleChange}/>
               </div>
