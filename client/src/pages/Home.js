@@ -1,5 +1,4 @@
-import React,{useState} from 'react';
-
+import React, { useState } from 'react';
 import Portfolios from "./Portfolios.js";
 
 export default function Home() {
