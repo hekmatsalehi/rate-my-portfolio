@@ -57,6 +57,21 @@ export const ADD_PORTFOLIO = gql`
       _id
       portfolioAuthor
       portfolioText
+      portfolioLink
+      portfolioImage
+      createdAt
+      ratings {
+        _id
+        ratingAuthor
+        ratingNumber
+        createdAt
+      }
+      feedbacks {
+        _id
+        feedbackAuthor
+        feedbackText
+        createdAt
+      }
     }
   }
 `;
@@ -124,6 +139,50 @@ export const REMOVE_RATING = gql`
       ratings {
         ratingAuthor
         ratingNumber
+      }
+    }
+  }
+`;
+
+export const ADD_FEEDBACK = gql`
+  mutation AddFeedback($portfolioId: ID!, $feedbackText: String!) {
+    addFeedback(portfolioId: $portfolioId, feedbackText: $feedbackText) {
+      _id
+      portfolioAuthor
+      portfolioText
+      createdAt
+      feedbacks{
+        _id
+        feedbackText
+        createdAt
+      }
+    
+    }
+  }
+`;
+
+export const UPDATE_FEEDBACK = gql`
+  mutation updateFeedback($portfolioId: ID!, $feedbackText: String!, $feedbackId: ID!) {
+    updateFeedback(portfolioId: $portfolioId, feedbackText: $feedbackText, feedbackId: $feedbackId) {
+      _id
+      portfolioText
+      feedbacks{
+        _id
+        feedbackText
+        feedbackAuthor
+      }
+    }
+  }
+`;
+
+export const REMOVE_FEEDBACK = gql`
+  mutation removeFeedback($portfolioId: ID!, $feedbackId: ID!){
+    removeFeedback(portfolioId: $portfolioId, feedbackId: $feedbackId){
+      _id
+      feedbacks{
+        _id
+        feedbackText
+        feedbackAuthor
       }
     }
   }

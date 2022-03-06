@@ -3,19 +3,25 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import { GET_ONE_PORTFOLIO } from '../utils/queries'
 
+import FeedbackList from '../components/FeedbackList/FeedbackList';
+import FeedbackForm from '../components/FeedbackForm/FeedbackForm';
+
 import { Card, Button, Container, Row, Col, } from 'react-bootstrap';
 
 
-function Portfolio(props) {
-    const { id } = useParams()
+const Portfolio = () => {
+    const { id } = useParams();
 
-    const { loading, error, data } = useQuery(GET_ONE_PORTFOLIO, {
+    const { loading, data } = useQuery(GET_ONE_PORTFOLIO, {
         variables: { portfolioId: id }
     });
 
     const portfolioData = data?.portfolio || {}
     //console.log(portfolioData.feedbacks)
 
+    if (loading) {
+        return <div>Loading...</div>;
+      }
     return (
         <div className="container-fluid d-flex flex-row flex-wrap justify-content-center">
             <Container>
@@ -43,7 +49,7 @@ function Portfolio(props) {
                                 <Card>
                                     <h2 className="text-center">Feedback</h2>
                                     <Container>
-                                        {portfolioData.feedbacks?.map((feedback) => {
+                                        {/* {portfolioData.feedbacks?.map((feedback) => {
                                             return (
                                                 <Row>
                                                     <Col>
@@ -53,10 +59,14 @@ function Portfolio(props) {
                                                         </Card>
                                                     </Col>
                                                 </Row>
-
-
                                             )
-                                        })}
+                                        })} */}
+                                        <div className="my-5">
+                                            <FeedbackList feedbacks={portfolioData.feedbacks} />
+                                        </div>
+                                        <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+                                            <FeedbackForm feedbackId={portfolioData._id} />
+                                        </div>
                                     </Container>
                                 </Card>
                             </Card.Body>
