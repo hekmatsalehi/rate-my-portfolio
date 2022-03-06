@@ -28,7 +28,7 @@ const Portfolio = () => {
                 <Row>
                     <Col>
                         <Card >
-                            <Card.Img variant="top" src={portfolioData.portfolioImage} />
+                            <Card.Img variant="top" src={portfolioData.portfolioImage}/>
                             <Card.Body>
                                 <Card.Title>{portfolioData.portfolioText}</Card.Title>
                                 <Card.Text>
@@ -36,20 +36,20 @@ const Portfolio = () => {
                                     the card's content.
                                 </Card.Text>
                             </Card.Body>
-                            {/* <ListGroup className="list-group-flush">
-                            <ListGroupItem>Cras justo odio</ListGroupItem>
-                            <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                            <ListGroupItem>Vestibulum at eros</ListGroupItem>
-                        </ListGroup> */}
                             <Card.Body>
                                 <Card.Link href="#">{portfolioData.portfolioLink}</Card.Link>
                                 {/* <Card.Link href="#">Another Link</Card.Link> */}
                             </Card.Body>
                             <Card.Body>
                                 <Card>
+                                    <Container>
+                                        
+                                    </Container>
+                                </Card>
+                                <Card>
                                     <h2 className="text-center">Feedback</h2>
                                     <Container>
-                                        {/* {portfolioData.feedbacks?.map((feedback) => {
+                                          {/* {portfolioData.feedbacks?.map((feedback) => {
                                             return (
                                                 <Row>
                                                     <Col>
@@ -61,7 +61,7 @@ const Portfolio = () => {
                                                 </Row>
                                             )
                                         })} */}
-                                        <div className="my-5">
+                                         <div className="my-5">
                                             <FeedbackList feedbacks={portfolioData.feedbacks} />
                                         </div>
                                         <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
