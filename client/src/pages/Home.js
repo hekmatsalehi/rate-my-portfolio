@@ -11,7 +11,7 @@ export default function Home() {
   const [portfolios, setPortfolios] = useState(portfolioListExample)
   return (
     <div>
-      <h1>Hello</h1>
+      {/* <h1>Hello</h1> */}
       <Portfolios portfolios = {portfolios} />
     </div>
 
