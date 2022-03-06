@@ -21,7 +21,6 @@ type User {
     ratings: [Rating]
     feedbacks: [Feedback]!
     createdAt: String
-    updatedAt: String
   }
 
   type Feedback {
@@ -29,7 +28,6 @@ type User {
     feedbackText: String
     feedbackAuthor: String
     createdAt: String
-    updatedAt: String
   }
 
   type Rating {

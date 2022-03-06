@@ -70,7 +70,7 @@ export const GET_ONE_PORTFOLIO = gql`
       portfolioLink
       portfolioImage
       createdAt
-      ratings {
+      ratings { 
         _id
         ratingAuthor
         ratingNumber
