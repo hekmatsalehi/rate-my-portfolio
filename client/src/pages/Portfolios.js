@@ -15,21 +15,20 @@ function Portfolios(props) {
         return <h1>...LOADING</h1>;
     }
     return (
-        <div>
+        <div class="bg-light">
             <PortfolioForm />
             <h1>Portfolios</h1>
             <Container>
-                <Row>
+                <Row className="">
                     {portfolioData?.map((portfolio) => {
                         return (
-                            <Card key={portfolio._id} style={{ width: "28rem" }}>
-                                <Card.Header>{portfolio.portfolioText}</Card.Header>
+                            <Card className="mx-auto my-2" key={portfolio._id} style={{ width: "24rem" }}>
+                                <Card.Title className="text-center mt-2">{portfolio.portfolioText}</Card.Title>
                                 <Card.Body>
                                     {/* <Card.Title>{portfolio.portfolioText}</Card.Title> */}
                                     <Card.Text>
                                         <Card.Img variant="top" src={portfolio.portfolioImage} />
-                                        <p>Author: {portfolio.portfolioAuthor}</p>
-
+                                        <p className="text-center mt-2">Author: {portfolio.portfolioAuthor}</p>
                                     </Card.Text>
                                     <Link to={`/portfolio/${portfolio._id}`}>
                                         <Button variant="primary">Go</Button>
