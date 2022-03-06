@@ -30,11 +30,6 @@ const portfolioSchema = new Schema({
     default: Date.now,
     get: (timestamp) => dateFormat(timestamp),
   },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-    get: (timestamp) => dateFormat(timestamp),
-  },
 
   ratings: [Rating],
   feedbacks: [Feedback],

@@ -3,8 +3,8 @@ import Portfolios from "./Portfolios.js";
 
 export default function Home() {
   const portfolioListExample = [
-    {portfolioName:"Parisa's Portfolio"}, 
-    {portfolioName:"Shazeen's Portfolio"}
+    {portfolioText:"Parisa's Portfolio"}, 
+    {portfolioText:"Shazeen's Portfolio"}
   ]
   // We need to have access to the arrays of the Portfolios
   // this state will hold "array of portfolios"
