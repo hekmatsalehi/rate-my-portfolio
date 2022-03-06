@@ -4,12 +4,7 @@ import { GET_ONE_USER, QUERY_ME } from '../utils/queries'
 import { HomeIcon } from '@heroicons/react/solid'
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth'
-
-const miniNav = [
-  { name: 'My Profile', href: '/me', current: false },
-
-]
-
+import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
 
 
 const Profile = () => {
@@ -17,6 +12,7 @@ const Profile = () => {
 
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
+    
    
   }
  
@@ -41,48 +37,11 @@ const Profile = () => {
     );
   }
   console.log(user.username);
+  console.log(user.portfolios.map((p)=>{return p.portfolioLink}))
   return (
     <>
 
-
-      {/*miniNav*/}
- 
-      <nav className="hidden bg-slate-100 border-b border-gray-200 lg:flex" aria-label="Breadcrumb">
-        <ol role="list" className="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
-          <li className="flex">
-            <div className="flex items-center">
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <HomeIcon className="flex-shrink-0 h-5 w-5" aria-hidden="true" />
-                <span className="sr-only">Home</span>
-              </a>
-            </div>
-          </li>
-          {miniNav.map((item) => (
-            <li key={item.name} className="flex">
-              <div className="flex items-center">
-                <svg
-                  className="flex-shrink-0 w-6 h-full text-gray-200"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 24 44"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                >
-                  <path d="M.293 0l22 22-22 22h1.414l22-22-22-22H.293z" />
-                </svg>
-                <a
-                  href={item.href}
-                  className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700"
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </a>
-              </div>
-            </li>
-            
-          ))}
-        </ol>
-      </nav>
+<PortfolioForm />
 
       <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form>
@@ -121,16 +80,16 @@ const Profile = () => {
               <label className="block text-sm font-medium text-gray-700">Portfolio Link</label>
               <div className="mt-1 flex rounded-md shadow-sm">
               
-                <p className=''>
-                  {user.portfolios.portfoliolink}
-                  </p>
+                <a href= {user.portfolios.map((p)=>{return p.portfolioLink})}>
+                  {user.portfolios.map((p)=>{return p.portfolioLink})}
+                  </a>
               </div>
             </div>
             <div>
               <div className="flex justify-center px-6 pt-5 pb border-2 rounded-md">
               <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
                 <div className="space-y-1 mb-2 text-center">
-                <img class="pic" src={user.portfolios.portfolioImage}></img>
+                <img class="pic" src={user.portfolios.map((p)=>{return p.portfolio})}></img>
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
                     stroke="currentColor"
@@ -151,11 +110,7 @@ const Profile = () => {
                 
               </label>
               <div className="mt-1 sm:mt-0 sm:col-span-2">
-               
-                <p className="mt-2 text-sm text-gray-500">Following</p>
-                <p className='followings'>
-                  {user.followings.id}
-                  </p>
+           
               </div>
             </div>
           </div>
@@ -163,6 +118,7 @@ const Profile = () => {
       </main>
     </>
   )
+  
 }
 
 export default Profile
