@@ -1,7 +1,7 @@
 [
   {
     "username": "Tom Jerry",
-    "email": "tomjerry@jerry.com",
+    "email": "tom@tom.com",
     "password": "password01"
   },
   {
@@ -10,18 +10,18 @@
     "password": "password02"
   },
   {
-    "username": "Spider 3",
-    "email": "spider@spider.com",
+    "username": "Peter Parker",
+    "email": "peter@peter.com",
     "password": "password03"
   },
   {
-    "username": "Fantastic Four",
-    "email": "fantastic@four.com",
+    "username": "John Smith",
+    "email": "john@john.com",
     "password": "password04"
   },
   {
-    "username": "MongoDB",
-    "email": "monogodb@db.com",
+    "username": "Jane Smith",
+    "email": "jane@jane.com",
     "password": "password05"
   }
 ]

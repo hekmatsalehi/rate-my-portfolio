@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React,{useState} from 'react';
+
 import Portfolios from "./Portfolios.js";
 
 export default function Home() {
   const portfolioListExample = [
-    {portfolioText:"Parisa's Portfolio"}, 
-    {portfolioText:"Shazeen's Portfolio"}
+    {portfolioName:"Parisa's Portfolio"}, 
+    {portfolioName:"Shazeen's Portfolio"}
   ]
   // We need to have access to the arrays of the Portfolios
   // this state will hold "array of portfolios"
   const [portfolios, setPortfolios] = useState(portfolioListExample)
   return (
     <div>
-      {/* <h1>Hello</h1> */}
+      <h1>Hello</h1>
       <Portfolios portfolios = {portfolios} />
     </div>
 
