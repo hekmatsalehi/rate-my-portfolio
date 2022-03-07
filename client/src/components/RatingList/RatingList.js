@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../styles/tailwind.css';
 
 const RatingList = ({ ratings = [] }) => {
   if (!ratings.length) {
@@ -14,11 +15,11 @@ const RatingList = ({ ratings = [] }) => {
 
   return (
     <>
-      <h3
-        className="p-5 display-inline-block"
-        style={{ borderBottom: '1px dotted #1a1a1a' }}
+    <div class="w-screen md:w-2/3 mx-auto">
+    <h3
+        className="p-1 display-inline-block text-right"
       >
-        Ratings <b className='display-1'>{avg}</b> / 5
+        Ratings <b class="display-1">{avg}</b> / 5
         {}
       </h3>
       <div className="flex-row my-4">
@@ -38,6 +39,7 @@ const RatingList = ({ ratings = [] }) => {
             </div>
           ))}
       </div>
+    </div>
     </>
   );
 };
