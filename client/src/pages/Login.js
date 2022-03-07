@@ -3,6 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { LOGIN_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
+import '../styles/tailwind.css';
 
 const Login = (props) => {
   const [formState, setFormState] = useState({ email: "", password: "" });
@@ -40,81 +41,78 @@ const Login = (props) => {
   };
 
   return (
-    
-      <div>
-        <div className="bg-slate-100 bg-fixed bg-cover bg-center bg-no-repeat min-h-full h-screen md:h-screen flex justify-center">
-          <div className="flex mx-auto md:w-auto md:mx-auto m-56 md:m-56 opacity-95">
-            <div className="m-auto md:container md:mx-auto bg-slate-300 shadow-md rounded mx-auto px-8 pt-6 pb-8 mb-4 md:px-12 md:pt-8 md:pb-12 md:pb-8 flex flex-col">
+    <div>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
+      <div className="font-sora flex justify-center">
+        <div className="flex mx-auto md:w-auto md:mx-auto m-56 md:m-44">
+          <div className="m-auto md:container bg-cyan-500 text-white md:mx-auto shadow-md rounded mx-auto px-8 pt-6 pb-8 mb-4 md:px-12 md:pt-8 md:pb-12 md:pb-8 flex flex-col">
             {data ? (
               <p>
                 Success! You may now head{' '}
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-            <form onSubmit={handleFormSubmit}>
-              <div className="mb-4">
-                <label
-                  className="block text-grey-darker text-sm font-bold mb-2"
-                  for="username"
-                >
-                  Email
-                </label>
-                
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-                  id="username"
-                  name="email"
-                  type="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  placeholder="Email address"
-                />
-              </div>
-              <div className="mb-6">
-                <label
-                  className="block text-grey-darker text-sm font-bold mb-2"
-                  for="password"
-                >
-                  Password
-                </label>
-                <input
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-                  id="password"
-                  placeholder="******"
-                  name="password"
-                  type="password"
-                  value={formState.password}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="flex items-center justify-between">
-                <button
-                  className="bg-gray-500 hover:bg-blue-500 hover:text-white text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
-                  id="login-button"
-                  type="submit"
-                >
-                  Sign In
-                </button>
-                <NavLink
-                  to="/Signup"
-                  className="inline-block align-baseline font-bold text-sm"
-                >
-                  <span className="text-black hover:text-blue-500"> Sign up here! </span>
-                </NavLink>
-                
-              </div>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label
+                    className="block text-sm font-bold mb-2"
+                    for="username"
+                  >
+                    Email
+                  </label>
+                  <input
+                    class="appearance-none text-black border rounded w-full py-2 px-3"
+                    id="username"
+                    name="email"
+                    type="email"
+                    value={formState.email}
+                    onChange={handleChange}
+                    placeholder="Email address"
+                  />
+                </div>
+                <div className="mb-6">
+                  <label
+                    className="block text-grey-darker text-sm font-bold mb-2"
+                    for="password"
+                  >
+                    Password
+                  </label>
+                  <input
+                    class="appearance-none border text-black rounded w-full py-2 px-3"
+                    id="password"
+                    placeholder="******"
+                    name="password"
+                    type="password"
+                    value={formState.password}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="flex items-center justify-between">
+                  <button
+                    class="hover:bg-cyan-400 bg-gray-200 text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                  <NavLink
+                    to="/Signup"
+                    class="inline-block align-baseline font-bold text-md no-underline">
+                    <span class="text-white"> Sign up here! </span>
+                  </NavLink>
+
+                </div>
               </form>
             )}
-               {error && (
+            {error && (
               <div className="my-3 p-3 bg-danger text-white">
                 {error.message}
               </div>
             )}
-            </div>
           </div>
         </div>
       </div>
-   
+    </div>
+
   );
 };
 export default Login

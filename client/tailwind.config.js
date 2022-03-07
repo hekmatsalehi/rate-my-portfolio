@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         'monster': ["'Montserrat'", 'sans-serif'],
+        'sora': ["'Sora'", 'sans-serif'],
       }
     },
     

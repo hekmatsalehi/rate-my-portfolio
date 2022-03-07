@@ -5,7 +5,8 @@ import { REMOVE_PORTFOLIO } from "../utils/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import Auth from "../utils/auth";
 import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
+import '../styles/tailwind.css';
+
 
 const Profile = () => {
   const [removePortfolio, { error }] = useMutation(REMOVE_PORTFOLIO, {
@@ -74,7 +75,8 @@ const Profile = () => {
   return (
     <>
       <PortfolioForm />
-      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
+      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16 font-sora">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
         <form>
           <div>
             <div>
@@ -99,28 +101,29 @@ const Profile = () => {
                 return (
                   <div class="max-w-sm rounded overflow-hidden shadow-md" key={portfolio._id}>
                     <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
-                    <div class="px-6 py-4">
-                      <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
+                    <div class="px-6 py-2">
+                      <div class="font-bold text-lg text-center mb-2">{portfolio.portfolioText}</div>
                     </div>
-                    <div>
-                      <a class="font-bold text-xl mb-2" href={portfolio.portfolioLink}>
-                        {portfolio.portfolioLink}
-                      </a>
+                    <div class="m-auto text-center pb-4">
+                      <a class="font-bold mb-2 mx-auto no-underline" href={portfolio.portfolioLink}>
+                      {portfolio.portfolioLink}</a>
                     </div>
-                    <Button className="mx-auto" variant="primary">
+                    <div class="flex">
+                    <button class="mx-auto no-underline">
                       <Link
-                        class="block m-auto text-white no-underline"
+                        class="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400"
                         to={`/portfolio/${portfolio._id}`}
                       >
                         View Portfolio
                       </Link>
-                    </Button>
-                    <Button
-                      className="btn btn-danger"
+                    </button>
+                    <button
+                      class="mx-auto rounded text-white p-2 no-underline bg-red-500 hover:bg-red-600 mb-4"
                       onClick={() => handleRemovePortfolio(portfolio._id)}
                     >
                       Remove
-                    </Button>
+                    </button>
+                    </div>
                   </div>
                 );
               })}

@@ -14,7 +14,8 @@ function Portfolios(props) {
         return <h1>...LOADING</h1>;
     }
     return (
-        <div class="font-monster md:w-max-2xl">
+        <div class="font-sora md:w-max-2xl">
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
             <div class="text-center p-10">
             </div>
             <div class="text-black p-2"><h1> Portfolios </h1></div>
