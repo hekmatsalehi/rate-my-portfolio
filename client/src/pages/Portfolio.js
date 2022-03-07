@@ -34,10 +34,8 @@ const Portfolio = () => {
             </div>
             <div class="rounded bg-feedback mx-auto mx-auto pt-6">
                 <h2 class="">Feedback</h2>
-                <div class="">
+                <div class="p-10 m-auto">
                     <FeedbackList feedbacks={portfolioData.feedbacks} />
-                </div>
-                <div class="">
                     <FeedbackForm portfolioId={portfolioData._id} />
                 </div>
             </div>

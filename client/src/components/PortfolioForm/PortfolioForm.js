@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_PORTFOLIO } from "../../utils/mutations";
 import { GET_ALL_PORTFOLIOS, QUERY_ME } from "../../utils/queries";
 
+import '../../styles/tailwind.css';
 import Auth from "../../utils/auth";
 
 const PortfolioForm = () => {
@@ -63,29 +64,26 @@ const PortfolioForm = () => {
   };
 
   return (
-    <div className="row col-12">
+    <div class="mx-auto text-center pt-10">
       {Auth.loggedIn() ? (
-        <>
-    
+        <>   
       <h3>Add your portfolio</h3>
-
           <form
-            className="p-3 rounded"
+            className="p-2 rounded"
             onSubmit={handleFormSubmit}
           >
-              <div className="form-group">
+              <div className="form-group p-2">
                 <textarea
                   name="portfolioText"
                   placeholder="Enter portfolio info..."
                   value={formState.portfolioText}
-                  className="form-input"
-                  style={{ lineHeight: "1.5", resize: "vertical" }}
+                  class="form-input rounded w-full md:w-2/5"
                   onChange={handleChange}
                 ></textarea>
               </div>
-              <div className="form-group">
+              <div className="form-group p-2">
                 <input
-                  className="form-input"
+                  className="form-input rounded w-full md:w-2/5"
                   placeholder="Enter portfolio image as a link"
                   name="portfolioImage"
                   type="text"
@@ -93,9 +91,9 @@ const PortfolioForm = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group">
+              <div className="form-group p-2">
                 <input
-                  className="form-input"
+                  className="form-input rounded w-full md:w-2/5"
                   placeholder="Enter portfolio link"
                   name="portfolioLink"
                   type="text"
@@ -105,8 +103,8 @@ const PortfolioForm = () => {
               </div>
             
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary py-3" type="submit">
+            <div className="text-center pt-2">
+              <button class="bg-cyan-500 px-20 py-2 hover:bg-cyan-400 text-white rounded" type="submit">
                 Add Portfolio
               </button>
             </div>

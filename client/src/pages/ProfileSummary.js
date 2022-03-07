@@ -22,16 +22,16 @@ const Profile = () => {
   )
 
 
- 
-    
-   
+
+
+
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/me" />;
   }
-  
-  
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -43,77 +43,62 @@ const Profile = () => {
         sign up or log in!
       </h4>
     );
-    }
+  }
 
-  console.log(user.portfolios.map((p)=>{return p.portfolioImage}))
-  if(user.portfolios.length > 0){
-    hasPortfolio= true
+  console.log(user.portfolios.map((p) => { return p.portfolioImage }))
+  if (user.portfolios.length > 0) {
+    hasPortfolio = true
     console.log(hasPortfolio)
   }
-  
+
   console.log(user.username);
   console.log(user.portfolios.map((p) => { return p.portfolioLink }))
-  
+
   return (
     <>
 
       <PortfolioForm />
-
-      <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
+      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form>
-
-          <div className="space-y-6">
+          <div>
             <div>
-              <h1 className="text-lg leading-6 font-medium text-gray-900">User Details</h1>
-
+              <h1 className="text-lg font-bold">User Details</h1>
             </div>
-
             <div>
-              <label htmlFor="project-name" className="block text-sm font-medium text-gray-700">
-
+              <p class="block text-md font-medium">
                 Viewing {user.username}'s Profile.
-              </label>
-              <div className="mt-1">
-                <p>
-
-                </p>
-              </div>
+              </p>
             </div>
 
-            <div className="col-span-3 sm:col-span-2">
-              <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
+            <div>
+              <h1 class="block font-bold text-lg mt-3">
                 Email
-              </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
+              </h1>
+                <p class="font-medium">{user.email}</p>
+            </div>
 
-                <p className=''>
-                  {user.email}
-                </p>
+
+            <div class="flex grid grid-cols-1 md:grid-cols-2 gap-3">
+              {user.portfolios?.map((portfolio) => {
+                return (
+                  <div class="max-w-sm rounded overflow-hidden shadow-md" key={portfolio._id}>
+                    <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
+                    </div>
+                  </div>
+                );
+              })}
+              <div className="flex justify-end">
+
               </div>
-            </div>
+              <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
+                <label htmlFor="bio" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
 
-          con
-             {user.portfolios?.map((portfolio) => {
-                        return (
-                            <div class="max-w-sm rounded overflow-hidden shadow-lg" key={portfolio._id}>
-                                <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
-                                <div class="px-6 py-4">
-                                    <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
-                                   
-                                </div>
-                               
-                            </div>
-                        );
-                    })}
-            <div className="flex justify-end">
+                </label>
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
 
-            </div>
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
-              <label htmlFor="bio" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-
-              </label>
-              <div className="mt-1 sm:mt-0 sm:col-span-2">
-
+                </div>
               </div>
             </div>
           </div>
