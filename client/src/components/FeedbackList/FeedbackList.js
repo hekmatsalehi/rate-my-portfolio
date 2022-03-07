@@ -7,16 +7,12 @@ const FeedbackList = ({ feedbacks = [] }) => {
 
   return (
     <>
-      <h3
-        className="p-5 display-inline-block"
-        style={{ borderBottom: '1px dotted #1a1a1a' }}
-      >
-        Feedbacks
-      </h3>
+    <div class="w-screen md:w-2/3 mx-auto">
       <div className="flex-row my-4">
+        <h1 class="mb-4">Feedbacks</h1>
         {feedbacks &&
           feedbacks.map((feedback) => (
-            <div key={feedback._id} className="col-12 mb-3 pb-3">
+            <div key={feedback._id} className="">
               <div className="p-3 bg-light">
                 <h5 className="card-header">
                   {feedback.feedbackAuthor} wrote {' '}
@@ -25,12 +21,13 @@ const FeedbackList = ({ feedbacks = [] }) => {
                   </span>
                 </h5>
                 <p className="card-body">{feedback.feedbackText}</p>
-              <button className='btn btn-secondary'>Edit</button>
-              <button className='btn btn-danger'>Remove</button>
+              <button class="btn btn-secondary mr-2">Edit</button>
+              <button class="btn btn-danger">Remove</button>
               </div>
             </div>
           ))}
       </div>
+    </div>
     </>
   );
 };

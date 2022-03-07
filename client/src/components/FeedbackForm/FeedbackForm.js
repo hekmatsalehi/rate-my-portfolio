@@ -39,7 +39,7 @@ const FeedbackForm = ({ portfolioId }) => {
   };
 
   return (
-    <div>
+    <div class="w-screen md:w-2/3 mx-auto">
       <h4>Feedbacks on this portfolio</h4>
 
       {Auth.loggedIn() ? (
@@ -56,19 +56,19 @@ const FeedbackForm = ({ portfolioId }) => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div class="">
               <textarea
                 name="feedbackText"
                 placeholder="Add your feedback..."
                 value={feedbackText}
-                className="form-input w-100"
+                class="rounded w-full"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
               ></textarea>
             </div>
 
-            <div className="col-12 col-lg-3">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+            <div className="mt-2">
+              <button class="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400" type="submit">
                 Add Feedback
               </button>
             </div>
