@@ -145,18 +145,17 @@ export const REMOVE_RATING = gql`
 `;
 
 export const ADD_FEEDBACK = gql`
-  mutation AddFeedback($portfolioId: ID!, $feedbackText: String!) {
+  mutation addFeedback($portfolioId: ID!, $feedbackText: String!) {
     addFeedback(portfolioId: $portfolioId, feedbackText: $feedbackText) {
       _id
-      portfolioAuthor
       portfolioText
+      portfolioAuthor
       createdAt
       feedbacks{
         _id
         feedbackText
         createdAt
       }
-    
     }
   }
 `;
