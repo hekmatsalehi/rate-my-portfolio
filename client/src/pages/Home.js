@@ -10,7 +10,7 @@ export default function Home() {
   const [portfolios] = useState()
   return (
     <div>
-      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet"/>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
       <Portfolios portfolios = {portfolios} />
     </div>
 

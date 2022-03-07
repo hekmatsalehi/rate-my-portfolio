@@ -9,7 +9,8 @@ const Navbar = () => {
     Auth.logout();
   };
   return (
-    <nav className="bg-cyan-500 sm:px-4 py-2.5 rounded">
+    <nav class="bg-cyan-500 sm:px-4 py-1 rounded font-sora">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
       <div className="container flex flex-wrap justify-between items-center mx-auto">
         <Link to="/" class="flex no-underline text-white">
           <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-upload mt-1 mr-2" viewBox="0 0 16 16">
@@ -30,31 +31,31 @@ const Navbar = () => {
                 <>
                   <div class="flex float-right">
                     <div class="mr-8">
-                    <Link class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 no-underline" to="/me">
-                      {Auth.getProfile().data.username}'s profile
-                    </Link>
+                      <Link class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 no-underline" to="/me">
+                        {Auth.getProfile().data.username}'s profile
+                      </Link>
                     </div>
                     <div class="mr-4">
-                    <button class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" onClick={logout}>
-                      Logout
-                    </button>
+                      <button class="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0" onClick={logout}>
+                        Logout
+                      </button>
                     </div>
                   </div>
                 </>
               ) : (
                 <>
-                <div class="flex float-right">
-                  <div class="mr-8">
-                  <Link class="block py-2 pr-4 pl-3 text-white md:border-0 hover:text-black md:p-0 no-underline" to="/login">
-                    Login
-                  </Link>
+                  <div class="flex float-right">
+                    <div class="mr-8">
+                      <Link class="block py-2 pr-4 pl-3 text-white md:border-0 hover:text-black md:p-0 no-underline" to="/login">
+                        Login
+                      </Link>
+                    </div>
+                    <div class="mr-4">
+                      <Link className="block py-2 pr-4 pl-3 text-white md:p-0 no-underline" to="/signup">
+                        Signup
+                      </Link>
+                    </div>
                   </div>
-                  <div class="mr-4">
-                  <Link className="block py-2 pr-4 pl-3 text-white md:p-0 no-underline" to="/signup">
-                    Signup
-                  </Link>
-                  </div>
-                </div>
                 </>
               )}
             </nav>

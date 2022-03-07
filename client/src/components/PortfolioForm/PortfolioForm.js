@@ -64,7 +64,8 @@ const PortfolioForm = () => {
   };
 
   return (
-    <div class="mx-auto text-center pt-10">
+    <div class="mx-auto text-center pt-10 font-sora">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
       {Auth.loggedIn() ? (
         <>   
       <h3>Add your portfolio</h3>
