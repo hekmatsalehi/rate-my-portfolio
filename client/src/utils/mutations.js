@@ -108,20 +108,23 @@ export const REMOVE_PORTFOLIO = gql`
 `;
 
 export const ADD_RATING = gql`
-  mutation addRating($portfolioId: ID!, $ratingNumber: Int!) {
+  mutation addRating($portfolioId: ID!, $ratingNumber: String!) {
     addRating(portfolioId: $portfolioId, ratingNumber: $ratingNumber) {
       _id
+      portfolioText
       portfolioAuthor
+      createdAt
       ratings {
-        ratingAuthor
+        _id
         ratingNumber
+        createdAt
       }
     }
   }
 `;
 
 export const UPDATE_RATING = gql`
-  mutation updateRating($portfolioId: ID!, $ratingNumber: Int!) {
+  mutation updateRating($portfolioId: ID!, $ratingNumber: String!) {
     updateRating(portfolioId: $portfolioId, ratingNumber: $ratingNumber) {
       ratings {
         _id

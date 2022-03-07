@@ -8,7 +8,8 @@ import Styles from "../css/style.css"
 
 import FeedbackList from '../components/FeedbackList/FeedbackList';
 import FeedbackForm from '../components/FeedbackForm/FeedbackForm';
-
+import RatingList from "../components/RatingList/RatingList";
+import RatingInput from "../components/RatingInput/RatingInput";
 import { Card, Button, Container, Row, Col, } from 'react-bootstrap';
 
 const Portfolio = () => {
@@ -42,23 +43,22 @@ const Portfolio = () => {
                                 <Card className="rounded bg-feedback">
                                     <h2 className="text-center">Feedback</h2>
                                     <Container>
-                                        {/* {portfolioData.feedbacks?.map((feedback) => {
-                                            return (
-                                                <Row>
-                                                    <Col>
-                                                        <Card>
-                                                            <p>{feedback.feedbackText}</p>
-                                                            <p className="text-right">{feedback.feedbackAuthor}</p>
-                                                        </Card>
-                                                    </Col>
-                                                </Row>
-                                            )
-                                        })} */}
                                         <div className="my-5">
                                             <FeedbackList feedbacks={portfolioData.feedbacks} />
                                         </div>
                                         <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
                                             <FeedbackForm portfolioId={portfolioData._id} />
+                                        </div>
+                                    </Container>
+                                </Card>
+                                <Card className="rounded">
+                                    <h2 className="text-center">Rating</h2>
+                                    <Container>
+                                        <div className="my-5">
+                                            <RatingList ratings={portfolioData.ratings} />
+                                        </div>
+                                        <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+                                            <RatingInput portfolioId={portfolioData._id} />
                                         </div>
                                     </Container>
                                 </Card>
