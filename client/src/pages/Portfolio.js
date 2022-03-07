@@ -58,7 +58,7 @@ const Portfolio = () => {
                                             <FeedbackList feedbacks={portfolioData.feedbacks} />
                                         </div>
                                         <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-                                            <FeedbackForm feedbackId={portfolioData._id} />
+                                            <FeedbackForm portfolioId={portfolioData._id} />
                                         </div>
                                     </Container>
                                 </Card>
