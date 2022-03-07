@@ -39,28 +39,27 @@ const RatingInput = ({ portfolioId }) => {
 
   return (
     <div>
-      <h4>Rate this portfolio</h4>
+      <h4 class="text-center">Rate this portfolio</h4>
 
       {Auth.loggedIn() ? (
         <>
           <form
-            className="flex-row justify-center justify-space-between-md align-center"
+            className="flex-row justify-center justify-space-between-md text-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="">
+            <div>
               <input
-                className="form-input"
+                class="rounded"
                 name="ratingNumber"
                 placeholder=""
                 value={ratingNumber}
                 type="number"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
               ></input>
             </div>
 
-            <div className="">
-              <button className="btn btn-primary btn-block py-3" type="submit">
+            <div class="mt-2">
+              <button class="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400" type="submit">
                 Add Rating
               </button>
             </div>

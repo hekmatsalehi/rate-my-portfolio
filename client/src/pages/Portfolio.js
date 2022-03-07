@@ -37,13 +37,12 @@ const Portfolio = () => {
                     {/* <Card.Link href="#">Another Link</Card.Link> */}
                 </div>
             </div>
-            <div class="">
-                <h2 class="">Feedback</h2>
-                <div class="p-10 mx-auto">
+            <div class="pt-10">
+                <div class="p-1 md:p-4 mx-auto">
                     <FeedbackList feedbacks={portfolioData.feedbacks} />
                     <FeedbackForm portfolioId={portfolioData._id} />
                 </div>
-                <div class="p-10 mx-auto">
+                <div class="mt-20 p-1 md:p-4 mx-auto">
                     <RatingList ratings={portfolioData.ratings} />
                     <RatingInput portfolioId={portfolioData._id} />
                 </div>
