@@ -15,11 +15,15 @@ const Profile = () => {
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
-    
-   
+
+
   }
+
+  )
+
+
  
-    ) 
+    
    
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
@@ -47,10 +51,13 @@ const Profile = () => {
     console.log(hasPortfolio)
   }
   
+  console.log(user.username);
+  console.log(user.portfolios.map((p) => { return p.portfolioLink }))
+  
   return (
     <>
 
-<PortfolioForm />
+      <PortfolioForm />
 
       <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form>
@@ -58,18 +65,18 @@ const Profile = () => {
           <div className="space-y-6">
             <div>
               <h1 className="text-lg leading-6 font-medium text-gray-900">User Details</h1>
-            
+
             </div>
 
             <div>
               <label htmlFor="project-name" className="block text-sm font-medium text-gray-700">
-                
-              Viewing {user.username}'s Profile.
+
+                Viewing {user.username}'s Profile.
               </label>
               <div className="mt-1">
                 <p>
-                 
-                 </p>
+
+                </p>
               </div>
             </div>
 
@@ -78,26 +85,27 @@ const Profile = () => {
                 Email
               </label>
               <div className="mt-1 flex rounded-md shadow-sm">
-              
+
                 <p className=''>
                   {user.email}
-                  </p>
+                </p>
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Portfolio Link</label>
               <div className="mt-1 flex rounded-md shadow-sm">
-              
-                <a href= {user.portfolios.map((p)=>{return p.portfolioLink})}>
-                  {user.portfolios.map((p)=>{return p.portfolioLink})}
-                  </a>
+
+                <a href={user.portfolios.map((p) => { return p.portfolioLink })}>
+                  {user.portfolios.map((p) => { return p.portfolioLink })}
+                </a>
               </div>
             </div>
             <div>
               <div className="flex justify-center px-6 pt-5 pb border-2 rounded-md">
-              <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
+                <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
                 <div className="space-y-1 mb-2 text-center">
+
                 <img class="pic" src={user.portfolios.map((p)=>{return p.portfolioImage})}></img>
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
@@ -106,20 +114,20 @@ const Profile = () => {
                     viewBox="0 0 48 48"
                     aria-hidden="true"
                   >
-                
+
                   </svg>
                 </div>
               </div>
             </div>
             <div className="flex justify-end">
-             
+
             </div>
             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
               <label htmlFor="bio" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                
+
               </label>
               <div className="mt-1 sm:mt-0 sm:col-span-2">
-           
+
               </div>
             </div>
           </div>
@@ -127,7 +135,7 @@ const Profile = () => {
       </main>
     </>
   )
-  
+
 }
 
 export default Profile
