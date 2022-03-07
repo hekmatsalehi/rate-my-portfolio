@@ -36,7 +36,7 @@ const Portfolio = () => {
                                 <Card.Title class="h1 text-center">{portfolioData.portfolioText}</Card.Title>
                             </Card.Body>
                             <Card.Body>
-                                <Card.Link class="justify-center" href="#">{portfolioData.portfolioLink}</Card.Link>
+                                <Card.Link class="justify-center" href={portfolioData.portfolioLink}>{portfolioData.portfolioLink}</Card.Link>
                                 {/* <Card.Link href="#">Another Link</Card.Link> */}
                             </Card.Body>
                             <Card.Body>
