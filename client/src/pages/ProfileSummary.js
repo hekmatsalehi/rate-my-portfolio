@@ -29,9 +29,9 @@ const Profile = () => {
     } catch (err) {
       console.error(err);
     }
-    console.log(portfolioId)
-  }
- 
+    console.log(portfolioId);
+  };
+
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
@@ -62,7 +62,6 @@ const Profile = () => {
     })
   );
   if (user.portfolios.length > 0) {
- 
   }
 
   console.log(user.username);
@@ -121,9 +120,9 @@ const Profile = () => {
                       {portfolio.portfolioText}
                     </div>
                     <div>
-                    <a class="font-bold text-xl mb-2">
-                      {portfolio.portfolioLink}
-                    </a>
+                      <a class="font-bold text-xl mb-2" href={portfolio.portfolioLink}>
+                       {portfolio.portfolioLink}
+                      </a>
                     </div>
                     <Button className="mx-auto" variant="primary">
                       <Link
@@ -133,11 +132,12 @@ const Profile = () => {
                         View Portfolio
                       </Link>
                     </Button>
-                    <Button className="btn btn-danger"
-                    onClick={() => handleRemovePortfolio(portfolio._id)}>
+                    <Button
+                      className="btn btn-danger"
+                      onClick={() => handleRemovePortfolio(portfolio._id)}
+                    >
                       Remove
                     </Button>
-                    
                   </div>
                 </div>
               );
