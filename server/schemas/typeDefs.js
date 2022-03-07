@@ -65,9 +65,9 @@ type User {
     updatePortfolio(portfolioId: ID!, portfolioText: String, portfolioImage: String, portfolioLink: String): Portfolio
 
     # RATING
-    addRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
+    addRating(portfolioId: ID!, ratingNumber: String!): Portfolio
     removeRating(portfolioId: ID!, ratingId: ID!): Portfolio
-    updateRating(portfolioId: ID!, ratingNumber: Int!): Portfolio
+    updateRating(portfolioId: ID!, ratingNumber: String!): Portfolio
 
     # FEEDBACK
     addFeedback(portfolioId: ID!, feedbackText: String!): Portfolio

@@ -9,7 +9,8 @@ import { Link } from "react-router-dom";
 
 import FeedbackList from '../components/FeedbackList/FeedbackList';
 import FeedbackForm from '../components/FeedbackForm/FeedbackForm';
-
+import RatingList from "../components/RatingList/RatingList";
+import RatingInput from "../components/RatingInput/RatingInput";
 import { Card, Button, Container, Row, Col, } from 'react-bootstrap';
 
 const Portfolio = () => {
@@ -40,6 +41,10 @@ const Portfolio = () => {
                 <div class="p-10 m-auto">
                     <FeedbackList feedbacks={portfolioData.feedbacks} />
                     <FeedbackForm portfolioId={portfolioData._id} />
+                </div>
+                <div class="p-10 m-auto">
+                    <RatingList ratings={portfolioData.ratings} />
+                    <RatingInput portfolioId={portfolioData._id} />
                 </div>
             </div>
         </div>
