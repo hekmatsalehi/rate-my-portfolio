@@ -4,13 +4,10 @@ import '../styles/tailwind.css';
 import Portfolios from "./Portfolios.js";
 
 export default function Home() {
-  const portfolioListExample = [
-    {portfolioName:"Parisa's Portfolio"}, 
-    {portfolioName:"Shazeen's Portfolio"}
-  ]
+ 
   // We need to have access to the arrays of the Portfolios
   // this state will hold "array of portfolios"
-  const [portfolios, setPortfolios] = useState(portfolioListExample)
+  const [portfolios] = useState()
   return (
     <div>
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet"/>

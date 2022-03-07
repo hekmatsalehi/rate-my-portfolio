@@ -5,6 +5,7 @@ import { HomeIcon } from '@heroicons/react/solid'
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth'
 import {UPDATE_PORTFOLIO} from '../utils/mutations'
+
 const miniNav = [
   { name: 'My Profile', href: '/ProfilePage', current: false },
 
