@@ -42,6 +42,10 @@ const Portfolio = () => {
                     <FeedbackList feedbacks={portfolioData.feedbacks} />
                     <FeedbackForm portfolioId={portfolioData._id} />
                 </div>
+                <div class="p-10 m-auto">
+                    <RatingList ratings={portfolioData.ratings} />
+                    <RatingInput portfolioId={portfolioData._id} />
+                </div>
             </div>
         </div>
         
