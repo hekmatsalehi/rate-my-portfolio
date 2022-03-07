@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import '../styles/tailwind.css';
 
 import Portfolios from "./Portfolios.js";
 
@@ -12,6 +13,7 @@ export default function Home() {
   const [portfolios, setPortfolios] = useState(portfolioListExample)
   return (
     <div>
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet"/>
       <Portfolios portfolios = {portfolios} />
     </div>
 
