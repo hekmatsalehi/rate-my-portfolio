@@ -1,27 +1,27 @@
 [
   {
-    "username": "Tom Jerry",
-    "email": "tom@tom.com",
+    "username": "Ashleigh Simonelli",
+    "email": "Simonelli@Simonelli.com",
     "password": "password01"
   },
   {
-    "username": "Khan Vira",
-    "email": "khan@khan.com",
+    "username": "Brittany Chiang",
+    "email": "Chiang@Chiang.com",
     "password": "password02"
   },
   {
-    "username": "Peter Parker",
-    "email": "peter@peter.com",
+    "username": "Joshua Chinwendu",
+    "email": "Chinwendu@Chinwendu.com",
     "password": "password03"
   },
   {
-    "username": "John Smith",
-    "email": "john@john.com",
+    "username": "Lisa Savoie",
+    "email": "Savoie@Savoie.com",
     "password": "password04"
   },
   {
-    "username": "Jane Smith",
-    "email": "jane@jane.com",
+    "username": "Julia Johnson",
+    "email": "Johnson@Johnson.com",
     "password": "password05"
   }
 ]
