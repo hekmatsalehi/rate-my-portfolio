@@ -85,32 +85,19 @@ const Profile = () => {
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Portfolio Link</label>
-              <div className="mt-1 flex rounded-md shadow-sm">
-              
-                <a href= {user.portfolios.map((p)=>{return p.portfolioLink})}>
-                  {user.portfolios.map((p)=>{return p.portfolioLink})}
-                  </a>
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-center px-6 pt-5 pb border-2 rounded-md">
-              <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
-                <div className="space-y-1 mb-2 text-center">
-                <img class="pic" src={user.portfolios.map((p)=>{return p.portfolioImage})}></img>
-                  <svg
-                    className="mx-auto h-12 w-12 text-gray-400"
-                    stroke="currentColor"
-                    fill="none"
-                    viewBox="0 0 48 48"
-                    aria-hidden="true"
-                  >
-                
-                  </svg>
-                </div>
-              </div>
-            </div>
+          con
+             {user.portfolios?.map((portfolio) => {
+                        return (
+                            <div class="max-w-sm rounded overflow-hidden shadow-lg" key={portfolio._id}>
+                                <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                                <div class="px-6 py-4">
+                                    <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
+                                   
+                                </div>
+                               
+                            </div>
+                        );
+                    })}
             <div className="flex justify-end">
              
             </div>
