@@ -17,14 +17,14 @@ function Portfolios(props) {
     }
     return (
         <div class="font-monster">
-            <PortfolioForm />
             <div class="text-black p-2"><h1> Portfolios </h1></div>
+            <p>To add a portfolio please <Link to="/login">log in</Link> and go to your <Link to="/me"> profile page.</Link></p>
             <Container>
                 <div class="grid grid-cols-1 md:grid-cols-3">
                     {portfolioData?.map((portfolio) => {
                         return (
                             <div class="max-w-sm rounded overflow-hidden shadow-lg" key={portfolio._id}>
-                                <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                                <img class="w-full height-" src={portfolio.portfolioImage} alt="Portfolio Preview" />
                                 <div class="px-6 py-4">
                                     <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
                                     <p class="text-gray-700 text-base">
