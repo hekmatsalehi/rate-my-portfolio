@@ -16,8 +16,11 @@ function Portfolios(props) {
     }
     return (
         <div class="bg-light">
-            <PortfolioForm />
-            <h1>Portfolios</h1>
+           
+            <h1 className="text-center">Portfolios</h1>
+            <>
+            <p className="text-center">To upload your own portfolio, go to <Link to="/me">your profile page.</Link></p>
+            </>
             <Container>
                 <Row className="">
                     {portfolioData?.map((portfolio) => {
