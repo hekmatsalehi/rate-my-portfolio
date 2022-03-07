@@ -74,54 +74,37 @@ const Profile = () => {
   return (
     <>
       <PortfolioForm />
-
-      <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
+      <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form>
-          <div className="space-y-6">
+          <div>
             <div>
-              <h1 className="text-lg leading-6 font-medium text-gray-900">
-                User Details
-              </h1>
+              <h1 className="text-lg font-bold">User Details</h1>
             </div>
-
             <div>
-              <label
-                htmlFor="project-name"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <p class="block text-md font-medium">
                 Viewing {user.username}'s Profile.
-              </label>
-              <div className="mt-1">
-                <p></p>
-              </div>
+              </p>
             </div>
 
-            <div className="col-span-3 sm:col-span-2">
-              <label
-                htmlFor="company-website"
-                className="block text-sm font-medium text-gray-700"
-              >
+            <div>
+              <h1 class="block font-bold text-lg mt-3">
                 Email
-              </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
-                <p className="">{user.email}</p>
-              </div>
+              </h1>
+              <p class="font-medium">{user.email}</p>
             </div>
 
-            {user.portfolios?.map((portfolio) => {
-              return (
-                <div
-                  class="max-w-sm rounded overflow-hidden shadow-lg"
-                  key={portfolio._id}
-                >
-                  <img src={portfolio.portfolioImage} alt="Portfolio Preview" />
-                  <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">
-                      {portfolio.portfolioText}
+
+            <div class="flex grid grid-cols-1 md:grid-cols-2 gap-3">
+              {user.portfolios?.map((portfolio) => {
+                return (
+                  <div class="max-w-sm rounded overflow-hidden shadow-md" key={portfolio._id}>
+                    <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                    <div class="px-6 py-4">
+                      <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
                     </div>
                     <div>
                       <a class="font-bold text-xl mb-2" href={portfolio.portfolioLink}>
-                       {portfolio.portfolioLink}
+                        {portfolio.portfolioLink}
                       </a>
                     </div>
                     <Button className="mx-auto" variant="primary">
@@ -139,22 +122,26 @@ const Profile = () => {
                       Remove
                     </Button>
                   </div>
+                );
+              })}
+              <div className="flex justify-end">
+
+              </div>
+              <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
+                <label htmlFor="bio" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+
+                </label>
+                <div className="mt-1 sm:mt-0 sm:col-span-2">
+
                 </div>
-              );
-            })}
-            <div className="flex justify-end"></div>
-            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
-              <label
-                htmlFor="bio"
-                className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
-              ></label>
-              <div className="mt-1 sm:mt-0 sm:col-span-2"></div>
+              </div>
             </div>
           </div>
         </form>
       </main>
     </>
-  );
-};
+  )
 
-export default Profile;
+}
+
+export default Profile

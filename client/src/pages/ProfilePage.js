@@ -4,7 +4,9 @@ import { GET_ONE_USER, QUERY_ME } from '../utils/queries'
 import { HomeIcon } from '@heroicons/react/solid'
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth'
-import {UPDATE_PORTFOLIO} from '../utils/mutations'
+import { UPDATE_PORTFOLIO } from '../utils/mutations'
+import '../styles/tailwind.css';
+
 
 const miniNav = [
   { name: 'My Profile', href: '/ProfilePage', current: false },
@@ -12,14 +14,14 @@ const miniNav = [
 ]
 
 const ProfilePage = () => {
-  
+
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
-   
+
   }
- 
-    ) 
+
+  )
 
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
@@ -45,7 +47,6 @@ const ProfilePage = () => {
 
 
       {/*miniNav*/}
- 
       <nav className="hidden bg-slate-100 border-b border-gray-200 lg:flex" aria-label="Breadcrumb">
         <ol role="list" className="max-w-screen-xl w-full mx-auto px-4 flex space-x-4 sm:px-6 lg:px-8">
           <li className="flex">
@@ -78,58 +79,46 @@ const ProfilePage = () => {
                 </a>
               </div>
             </li>
-            
           ))}
         </ol>
       </nav>
 
-      <main className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
-        <form>
-
+      <div className="max-w-lg mx-auto pt-10 pb-12 px-4 lg:pb-16">
           <div className="space-y-6">
             <div>
               <h1 className="text-lg leading-6 font-medium text-gray-900">User Details</h1>
-            
             </div>
-
             <div>
               <label htmlFor="project-name" className="block text-sm font-medium text-gray-700">
-                
-              Viewing {user.username}'s Profile.
+                Viewing {user.username}'s Profile.
               </label>
               <div className="mt-1">
                 <p>
-                 
-                 </p>
+                </p>
               </div>
             </div>
-
-            <div className="col-span-3 sm:col-span-2">
-              <label htmlFor="company-website" className="block text-sm font-medium text-gray-700">
+              <p className="block text-center text-sm font-medium text-gray-700">
                 Email
-              </label>
-              <div className="mt-1 flex rounded-md shadow-sm">
-              
-                <p className=''>
+              </p>
+              <div class=" mt-1 flex rounded-md shadow-sm">
+                <p class=''>
                   {user.email}
-                  </p>
+                </p>
               </div>
-            </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Portfolio Link</label>
               <div className="mt-1 flex rounded-md shadow-sm">
-              
                 <p className=''>
                   {user.portfolios.portfoliolink}
-                  </p>
+                </p>
               </div>
             </div>
             <div>
               <div className="flex justify-center px-6 pt-5 pb border-2 rounded-md">
-              <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
+                <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
                 <div className="space-y-1 mb-2 text-center">
-                <img class="pic" src={user.portfolios.portfolioImage}></img>
+                  <img class="pic" src={user.portfolios.portfolioImage}></img>
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
                     stroke="currentColor"
@@ -137,14 +126,14 @@ const ProfilePage = () => {
                     viewBox="0 0 48 48"
                     aria-hidden="true"
                   >
-                
+
                   </svg>
                 </div>
               </div>
             </div>
             <div className="flex justify-end">
               <button onClick={editProfile}
-                type= 'submit'
+                type='submit'
                 className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-sky-500 hover:bg-sky-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sky-500"
               >
                 Save
@@ -152,25 +141,23 @@ const ProfilePage = () => {
             </div>
             <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
               <label htmlFor="bio" className="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
-                
+
               </label>
               <div className="mt-1 sm:mt-0 sm:col-span-2">
-               
                 <p className="mt-2 text-sm text-gray-500">Following</p>
                 <p className='followings'>
                   {user.followings.id}
-                  </p>
+                </p>
               </div>
             </div>
           </div>
-        </form>
-      </main>
+      </div>
     </>
   )
 }
 
-function editProfile(){
-    document.location.replace('/ProfilePage')
-    
+function editProfile() {
+  document.location.replace('/ProfilePage')
+
 }
 export default ProfilePage
