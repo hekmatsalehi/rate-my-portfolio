@@ -28,5 +28,11 @@
     "portfolioImage": "https://imgdb.net/storage/uploads/c09def4d427966816a940fedc00fcfe948113841db3d3f1afecf75059b1151fb.jpg",
     "portfolioLink": "https://www.juliacodes.com/",
     "portfolioAuthor": "Julia Johnson"
+  },
+  {
+    "portfolioText": "Dillion Megida's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/4b1747cf2512e0688490e64505f8a5091b1762c542b425a2e2349d7c890f7a34.jpg",
+    "portfolioLink": "https://dillionmegida.com/",
+    "portfolioAuthor": "Dillion Megida"
   }
 ]
