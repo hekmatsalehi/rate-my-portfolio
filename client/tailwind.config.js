@@ -4,9 +4,8 @@ module.exports = {
   ],
   theme: {
     extend: {
-     
-      backgroundImage: {
-        'mainbackground': "url('../../../client/src/images/background.jpg')",
+      fontFamily: {
+        'monster': ["'Montserrat'", 'sans-serif'],
       }
     },
     

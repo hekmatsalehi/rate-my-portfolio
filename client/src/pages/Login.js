@@ -42,9 +42,9 @@ const Login = (props) => {
   return (
     
       <div>
-        <div className="bg-slate-600 bg-fixed bg-cover bg-center bg-no-repeat min-h-full h-screen md:h-screen flex justify-center">
+        <div className="bg-slate-100 bg-fixed bg-cover bg-center bg-no-repeat min-h-full h-screen md:h-screen flex justify-center">
           <div className="flex mx-auto md:w-auto md:mx-auto m-56 md:m-56 opacity-95">
-            <div className="m-auto md:container md:mx-auto bg-white shadow-md rounded mx-auto px-8 pt-6 pb-8 mb-4 md:px-12 md:pt-8 md:pb-12 md:pb-8 flex flex-col">
+            <div className="m-auto md:container md:mx-auto bg-slate-300 shadow-md rounded mx-auto px-8 pt-6 pb-8 mb-4 md:px-12 md:pt-8 md:pb-12 md:pb-8 flex flex-col">
             {data ? (
               <p>
                 Success! You may now head{' '}
@@ -78,7 +78,7 @@ const Login = (props) => {
                   Password
                 </label>
                 <input
-                  className="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                   id="password"
                   placeholder="******"
                   name="password"
@@ -89,7 +89,7 @@ const Login = (props) => {
               </div>
               <div className="flex items-center justify-between">
                 <button
-                  className="bg-gray-200 hover:bg-blue-500 hover:text-white text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
+                  className="bg-gray-500 hover:bg-blue-500 hover:text-white text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
                   id="login-button"
                   type="submit"
                 >
@@ -99,7 +99,7 @@ const Login = (props) => {
                   to="/Signup"
                   className="inline-block align-baseline font-bold text-sm"
                 >
-                  <span className="hover:text-blue-500"> Sign up here! </span>
+                  <span className="text-black hover:text-blue-500"> Sign up here! </span>
                 </NavLink>
                 
               </div>

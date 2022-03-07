@@ -1,4 +1,5 @@
 import React from "react";
+import '../styles/tailwind.css';
 import Portfolio from "./Portfolio.js";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
@@ -15,35 +16,35 @@ function Portfolios(props) {
         return <h1>...LOADING</h1>;
     }
     return (
-        <div class="bg-light">
-           
-            <h1 className="text-center">Portfolios</h1>
-            <>
-            <p className="text-center">To upload your own portfolio, go to <Link to="/me">your profile page.</Link></p>
-            </>
+        <div class="font-monster">
+            <PortfolioForm />
+            <div class="text-black p-2"><h1> Portfolios </h1></div>
             <Container>
-                <Row className="">
+                <div class="grid grid-cols-1 md:grid-cols-3">
                     {portfolioData?.map((portfolio) => {
                         return (
-                            <Card className="mx-auto my-2" key={portfolio._id} style={{ width: "24rem" }}>
-                                <Card.Title className="text-center mt-2">{portfolio.portfolioText}</Card.Title>
-                                <Card.Body>
-                                    {/* <Card.Title>{portfolio.portfolioText}</Card.Title> */}
-                                    <Card.Text>
-                                        <Card.Img variant="top" src={portfolio.portfolioImage} />
-                                        <p className="text-center mt-2">Author: {portfolio.portfolioAuthor}</p>
-                                    </Card.Text>
-                                    <Link to={`/portfolio/${portfolio._id}`}>
-                                        <Button variant="primary">Go</Button>
+                            <div class="max-w-sm rounded overflow-hidden shadow-lg" key={portfolio._id}>
+                                <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                                <div class="px-6 py-4">
+                                    <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
+                                    <p class="text-gray-700 text-base">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                                    </p>
+                                </div>
+                                <Button className="mx-auto" variant="primary">
+                                    <Link class="block m-auto text-white no-underline" to={`/portfolio/${portfolio._id}`}>
+                                        View Portfolio
                                     </Link>
-                                </Card.Body>
-                            </Card>
+                                </Button>
+                            </div>
                         );
                     })}
-                </Row>
+                </div>
             </Container>
         </div>
     );
 }
 
 export default Portfolios;
+
+
