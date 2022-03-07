@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import '../../styles/tailwind.css';
 
 import { ADD_RATING } from '../../utils/mutations';
 
@@ -46,7 +47,7 @@ const RatingInput = ({ portfolioId }) => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div className="">
               <input
                 className="form-input"
                 name="ratingNumber"
@@ -58,7 +59,7 @@ const RatingInput = ({ portfolioId }) => {
               ></input>
             </div>
 
-            <div className="col-12 col-lg-3">
+            <div className="">
               <button className="btn btn-primary btn-block py-3" type="submit">
                 Add Rating
               </button>
