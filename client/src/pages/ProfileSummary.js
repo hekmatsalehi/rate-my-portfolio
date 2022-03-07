@@ -1,15 +1,18 @@
 import React from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 import { GET_ONE_USER, QUERY_ME } from '../utils/queries'
-import { HomeIcon } from '@heroicons/react/solid'
+import { HomeIcon, UsersIcon } from '@heroicons/react/solid'
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth'
 import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
 
 
-const Profile = () => {
-  const { username: userParam } = useParams();
 
+
+const Profile = () => {
+
+  let hasPortfolio = false
+  const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
     
@@ -17,13 +20,14 @@ const Profile = () => {
   }
  
     ) 
-
+   
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/me" />;
   }
-
+  
+  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -35,9 +39,14 @@ const Profile = () => {
         sign up or log in!
       </h4>
     );
+    }
+
+  console.log(user.portfolios.map((p)=>{return p.portfolioImage}))
+  if(user.portfolios.length > 0){
+    hasPortfolio= true
+    console.log(hasPortfolio)
   }
-  console.log(user.username);
-  console.log(user.portfolios.map((p)=>{return p.portfolioLink}))
+  
   return (
     <>
 
@@ -89,7 +98,7 @@ const Profile = () => {
               <div className="flex justify-center px-6 pt-5 pb border-2 rounded-md">
               <label className="block text-sm font-medium text-gray-700">Portfolio Image</label>
                 <div className="space-y-1 mb-2 text-center">
-                <img class="pic" src={user.portfolios.map((p)=>{return p.portfolio})}></img>
+                <img class="pic" src={user.portfolios.map((p)=>{return p.portfolioImage})}></img>
                   <svg
                     className="mx-auto h-12 w-12 text-gray-400"
                     stroke="currentColor"
