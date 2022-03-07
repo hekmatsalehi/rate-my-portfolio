@@ -1,36 +1,47 @@
-import React from 'react';
-import { Redirect, useParams } from 'react-router-dom';
-import { GET_ONE_USER, QUERY_ME } from '../utils/queries'
-import { HomeIcon, UsersIcon } from '@heroicons/react/solid'
-import { useQuery } from '@apollo/client';
-import Auth from '../utils/auth'
+import React, { useState } from "react";
+import { Redirect, useParams, Link } from "react-router-dom";
+import { GET_ONE_USER, QUERY_ME } from "../utils/queries";
+import { REMOVE_PORTFOLIO } from "../utils/mutations";
+import { useQuery, useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
 import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
-
-
-
+import { Card, Button, Container, Row, Col } from "react-bootstrap";
 
 const Profile = () => {
+  const [removePortfolio, { error }] = useMutation(REMOVE_PORTFOLIO, {
+    update(cache, { data: { removePortfolio } }) {
+      try {
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: removePortfolio },
+        });
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  });
 
-  let hasPortfolio = false
+  const handleRemovePortfolio = async (portfolioId) => {
+    try {
+      const { data } = await removePortfolio({
+        variables: { portfolioId },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+    console.log(portfolioId);
+  };
+
   const { username: userParam } = useParams();
   const { loading, data } = useQuery(userParam ? GET_ONE_USER : QUERY_ME, {
     variables: { username: userParam },
-
-
-  }
-
-  )
-
-
-
-
+  });
 
   const user = data?.me || data?.user || {};
   // redirect to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Redirect to="/me" />;
   }
-
 
   if (loading) {
     return <div>Loading...</div>;
@@ -45,18 +56,23 @@ const Profile = () => {
     );
   }
 
-  console.log(user.portfolios.map((p) => { return p.portfolioImage }))
+  console.log(
+    user.portfolios.map((p) => {
+      return p.portfolioImage;
+    })
+  );
   if (user.portfolios.length > 0) {
-    hasPortfolio = true
-    console.log(hasPortfolio)
   }
 
   console.log(user.username);
-  console.log(user.portfolios.map((p) => { return p.portfolioLink }))
+  console.log(
+    user.portfolios.map((p) => {
+      return p.portfolioLink;
+    })
+  );
 
   return (
     <>
-
       <PortfolioForm />
       <main className="max-w-2xl mx-auto pt-10 pb-12 px-4 lg:pb-16">
         <form>
@@ -74,7 +90,7 @@ const Profile = () => {
               <h1 class="block font-bold text-lg mt-3">
                 Email
               </h1>
-                <p class="font-medium">{user.email}</p>
+              <p class="font-medium">{user.email}</p>
             </div>
 
 
@@ -86,6 +102,25 @@ const Profile = () => {
                     <div class="px-6 py-4">
                       <div class="font-bold text-xl mb-2">{portfolio.portfolioText}</div>
                     </div>
+                    <div>
+                      <a class="font-bold text-xl mb-2" href={portfolio.portfolioLink}>
+                        {portfolio.portfolioLink}
+                      </a>
+                    </div>
+                    <Button className="mx-auto" variant="primary">
+                      <Link
+                        class="block m-auto text-white no-underline"
+                        to={`/portfolio/${portfolio._id}`}
+                      >
+                        View Portfolio
+                      </Link>
+                    </Button>
+                    <Button
+                      className="btn btn-danger"
+                      onClick={() => handleRemovePortfolio(portfolio._id)}
+                    >
+                      Remove
+                    </Button>
                   </div>
                 );
               })}

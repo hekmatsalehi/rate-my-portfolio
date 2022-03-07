@@ -6,8 +6,11 @@ import { useQuery } from '@apollo/client'
 import { GET_ONE_PORTFOLIO } from '../utils/queries'
 import { Link } from "react-router-dom";
 
+
 import FeedbackList from '../components/FeedbackList/FeedbackList';
 import FeedbackForm from '../components/FeedbackForm/FeedbackForm';
+
+import { Card, Button, Container, Row, Col, } from 'react-bootstrap';
 
 const Portfolio = () => {
     const { id } = useParams();
@@ -40,6 +43,7 @@ const Portfolio = () => {
                 </div>
             </div>
         </div>
+        
     )
 }
 
