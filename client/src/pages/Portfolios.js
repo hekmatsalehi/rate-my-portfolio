@@ -1,11 +1,9 @@
 import React from "react";
 import '../styles/tailwind.css';
 import Portfolio from "./Portfolio.js";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import { GET_ALL_PORTFOLIOS } from "../utils/queries";
 import { Link } from "react-router-dom";
-import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
 
 function Portfolios(props) {
     const { loading, data } = useQuery(GET_ALL_PORTFOLIOS);
@@ -18,7 +16,6 @@ function Portfolios(props) {
     return (
         <div class="font-monster md:w-max-2xl">
             <div class="text-center p-10">
-            <PortfolioForm/> 
             </div>
             <div class="text-black p-2"><h1> Portfolios </h1></div>
                 <div class="flex grid grid-cols-1 md:grid-cols-3 p-2">
@@ -30,7 +27,7 @@ function Portfolios(props) {
                                     <div class="text-center font-bold text-xl mb-2">{portfolio.portfolioText}</div>
                                 </div>
                                 <div class="text-center p-2">
-                                    <Link class="block m-auto text-white no-underline bg-cyan-500 hover:bg-cyan-400 p-2 rounded" to={`/portfolio/${portfolio._id}`}>
+                                    <Link class="block m-auto text-white no-underline bg-cyan-500 hover:bg-cyan-400 p-2 rounded" href="#" to={`/portfolio/${portfolio._id}`}>
                                         View Portfolio
                                     </Link>
                                 </div>
