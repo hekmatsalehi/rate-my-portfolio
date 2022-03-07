@@ -1,32 +1,32 @@
 [
   {
-    "portfolioText": "Tom's Portfolio",
-    "portfolioImage": "https://media.istockphoto.com/photos/code-programming-for-website-editors-view-picture-id1290492381",
-    "portfolioLink": "https://www.google.com",
-    "portfolioAuthor": "Tom Jerry"
+    "portfolioText": "Ashleigh Simonelli's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/f2544d886ed16f0abe651e0fd736f5d085fba10dfe53a93e29f2c3be62e6c18e.png",
+    "portfolioLink": "https://ashleighsimonelli.co.uk/",
+    "portfolioAuthor": "Ashleigh Simonelli"
   },
   {
-    "portfolioText": "Khan's Portfolio",
-    "portfolioImage": "https://media.istockphoto.com/photos/cyber-security-web-development-and-work-in-it-concept-picture-id1289411982",
-    "portfolioLink": "https://www.google.com",
-    "portfolioAuthor": "Khan Vira"
+    "portfolioText": "Brittany Chiang's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/dfc665d1f4915a5ab4bc459e3adff704e5e2887646479f69c424fcae62de4371.jpg",
+    "portfolioLink": "https://brittanychiang.com/",
+    "portfolioAuthor": "Brittany Chiang"
   },
   {
-    "portfolioText": "Peter's Portfolio",
-    "portfolioImage": "https://images.unsplash.com/photo-1605379399843-5870eea9b74e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1498&q=80",
-    "portfolioLink": "https://www.google.com",
-    "portfolioAuthor": "Peter Parker"
+    "portfolioText": "Joshua Chinwendu's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/c0950ede1428cec37011fc21579615190b7ee0a2a6c2acccb1c66fa80b8eecc2.jpg",
+    "portfolioLink": "https://joshualine.github.io/",
+    "portfolioAuthor": "Joshua Chinwendu"
   },
   {
-    "portfolioText": "John's Portfolio",
-    "portfolioImage": "https://images.unsplash.com/photo-1488229297570-58520851e868?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-    "portfolioLink": "https://www.google.com",
-    "portfolioAuthor": "John Smith"
+    "portfolioText": "Lisa Savoie's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/6a5168d7018b5ecfbe62389ed847af63536385756432e0bdf38f1a022d5a7c03.jpg",
+    "portfolioLink": "https://lscodes.com/",
+    "portfolioAuthor": "Lisa Savoie"
   },
   {
-    "portfolioText": "Jane's Portfolio",
-    "portfolioImage": "https://images.unsplash.com/photo-1496715976403-7e36dc43f17b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-    "portfolioLink": "https://www.google.com",
-    "portfolioAuthor": "Jane Smith"
+    "portfolioText": "Julia Johnson's Portfolio",
+    "portfolioImage": "https://imgdb.net/storage/uploads/c09def4d427966816a940fedc00fcfe948113841db3d3f1afecf75059b1151fb.jpg",
+    "portfolioLink": "https://www.juliacodes.com/",
+    "portfolioAuthor": "Julia Johnson"
   }
 ]
