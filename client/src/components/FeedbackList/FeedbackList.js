@@ -7,9 +7,9 @@ const FeedbackList = ({ feedbacks = [] }) => {
 
   return (
     <>
-    <div class="w-screen md:w-2/3 mx-auto">
+    <div className="w-screen md:w-2/3 mx-auto">
       <div className="flex-row my-4">
-        <h1 class="mb-4">Feedback</h1>
+        <h1 className="mb-4">Feedback</h1>
         {feedbacks &&
           feedbacks.map((feedback) => (
             <div key={feedback._id} className="">
@@ -21,8 +21,8 @@ const FeedbackList = ({ feedbacks = [] }) => {
                   </span>
                 </h5>
                 <p className="card-body">{feedback.feedbackText}</p>
-              {/* <button class="btn btn-secondary mr-2">Edit</button>
-              <button class="btn btn-danger">Remove</button> */}
+              {/* <button className="btn btn-secondary mr-2">Edit</button>
+              <button className="btn btn-danger">Remove</button> */}
               </div>
             </div>
           ))}

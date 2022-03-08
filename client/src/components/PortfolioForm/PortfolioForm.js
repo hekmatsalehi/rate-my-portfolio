@@ -64,7 +64,7 @@ const PortfolioForm = () => {
   };
 
   return (
-    <div class="mx-auto text-center pt-10 font-sora">
+    <div className="mx-auto text-center pt-10 font-sora">
       <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Sora&display=swap" rel="stylesheet"/>
       {Auth.loggedIn() ? (
         <>   
@@ -78,7 +78,7 @@ const PortfolioForm = () => {
                   name="portfolioText"
                   placeholder="Enter Portfolio Title"
                   value={formState.portfolioText}
-                  class="form-input rounded w-full md:w-2/5"
+                  className="form-input rounded w-full md:w-2/5"
                   onChange={handleChange}
                 ></textarea>
               </div>
@@ -105,7 +105,7 @@ const PortfolioForm = () => {
             
 
             <div className="text-center pt-2">
-              <button class="bg-cyan-500 px-20 py-2 hover:bg-cyan-400 text-white rounded" type="submit">
+              <button className="bg-cyan-500 px-20 py-2 hover:bg-cyan-400 text-white rounded" type="submit">
                 Add Portfolio
               </button>
             </div>

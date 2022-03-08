@@ -15,11 +15,11 @@ const RatingList = ({ ratings = [] }) => {
 
   return (
     <>
-    <div class="w-screen md:w-2/3 mx-auto">
+    <div className="w-screen md:w-2/3 mx-auto">
     <h3
         className="p-1 display-inline-block text-right"
       >
-        Ratings <b class="display-1">{avg}</b> / 5
+        Ratings <b className="display-1">{avg}</b> / 5
         {}
       </h3>
       <div className="flex-row my-4">

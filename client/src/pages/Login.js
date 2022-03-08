@@ -61,7 +61,7 @@ const Login = (props) => {
                     Email
                   </label>
                   <input
-                    class="appearance-none text-black border rounded w-full py-2 px-3"
+                    className="appearance-none text-black border rounded w-full py-2 px-3"
                     id="username"
                     name="email"
                     type="email"
@@ -78,7 +78,7 @@ const Login = (props) => {
                     Password
                   </label>
                   <input
-                    class="appearance-none border text-black rounded w-full py-2 px-3"
+                    className="appearance-none border text-black rounded w-full py-2 px-3"
                     id="password"
                     placeholder="******"
                     name="password"
@@ -89,15 +89,15 @@ const Login = (props) => {
                 </div>
                 <div className="flex items-center justify-between">
                   <button
-                    class="hover:bg-cyan-400 bg-gray-200 text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
+                    className="hover:bg-cyan-400 bg-gray-200 text-black font-bold py-1 px-2 md:py-2 md:px-4 md:mr-8 rounded"
                     type="submit"
                   >
                     Sign In
                   </button>
                   <NavLink
                     to="/Signup"
-                    class="inline-block align-baseline font-bold text-md no-underline">
-                    <span class="text-white"> Sign up here! </span>
+                    className="inline-block align-baseline font-bold text-md no-underline">
+                    <span className="text-white"> Sign up here! </span>
                   </NavLink>
 
                 </div>
