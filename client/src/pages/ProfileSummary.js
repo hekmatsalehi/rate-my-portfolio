@@ -83,42 +83,42 @@ const Profile = () => {
               <h1 className="text-lg font-bold">User Details</h1>
             </div>
             <div>
-              <p class="block text-md font-medium">
+              <p className="block text-md font-medium">
                 Viewing {user.username}'s Profile.
               </p>
             </div>
 
             <div>
-              <h1 class="block font-bold text-lg mt-3">
+              <h1 className="block font-bold text-lg mt-3">
                 Email
               </h1>
-              <p class="font-medium">{user.email}</p>
+              <p className="font-medium">{user.email}</p>
             </div>
 
 
-            <div class="flex grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="flex grid grid-cols-1 md:grid-cols-2 gap-3">
               {user.portfolios?.map((portfolio) => {
                 return (
-                  <div class="max-w-sm rounded overflow-hidden shadow-md" key={portfolio._id}>
-                    <img class="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
-                    <div class="px-6 py-2">
-                      <div class="font-bold text-lg text-center mb-2">{portfolio.portfolioText}</div>
+                  <div className="max-w-sm rounded overflow-hidden shadow-md" key={portfolio._id}>
+                    <img className="w-full" src={portfolio.portfolioImage} alt="Portfolio Preview" />
+                    <div className="px-6 py-2">
+                      <div className="font-bold text-lg text-center mb-2">{portfolio.portfolioText}</div>
                     </div>
-                    <div class="m-auto text-center pb-4">
-                      <a class="font-bold mb-2 mx-auto no-underline" href={portfolio.portfolioLink}>
+                    <div className="m-auto text-center pb-4">
+                      <a className="font-bold mb-2 mx-auto no-underline" href={portfolio.portfolioLink}>
                       {portfolio.portfolioLink}</a>
                     </div>
-                    <div class="flex">
-                    <button class="mx-auto no-underline">
+                    <div className="flex">
+                    <button className="mx-auto no-underline">
                       <Link
-                        class="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400"
+                        className="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400"
                         to={`/portfolio/${portfolio._id}`}
                       >
                         View Portfolio
                       </Link>
                     </button>
                     <button
-                      class="mx-auto rounded text-white p-2 no-underline bg-red-500 hover:bg-red-600 mb-4"
+                      className="mx-auto rounded text-white p-2 no-underline bg-red-500 hover:bg-red-600 mb-4"
                       onClick={() => handleRemovePortfolio(portfolio._id)}
                     >
                       Remove

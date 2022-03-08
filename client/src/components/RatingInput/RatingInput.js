@@ -39,7 +39,7 @@ const RatingInput = ({ portfolioId }) => {
 
   return (
     <div>
-      <h4 class="text-center">Rate this portfolio</h4>
+      <h4 className="text-center">Rate this portfolio</h4>
 
       {Auth.loggedIn() ? (
         <>
@@ -49,7 +49,7 @@ const RatingInput = ({ portfolioId }) => {
           >
             <div>
               <input
-                class="rounded"
+                className="rounded"
                 name="ratingNumber"
                 placeholder=""
                 value={ratingNumber}
@@ -58,8 +58,8 @@ const RatingInput = ({ portfolioId }) => {
               ></input>
             </div>
 
-            <div class="mt-2">
-              <button class="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400" type="submit">
+            <div className="mt-2">
+              <button className="block m-auto rounded text-white no-underline p-2 mb-4 bg-cyan-500 hover:bg-cyan-400" type="submit">
                 Add Rating
               </button>
             </div>
