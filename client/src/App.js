@@ -61,9 +61,9 @@ function App() {
             <Route exact path="/me">
               <ProfileSummary />
             </Route>
-            <Route exact path="/ProfilePage">
+            {/* <Route exact path="/ProfilePage">
               <ProfilePage />
-            </Route>
+            </Route> */}
             <Route exact path="/portfolio/:id">
               <Portfolio/>
             </Route>

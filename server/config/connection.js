@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-require('dotenv').config()
 
 mongoose.connect(
-process.env.MONGODB_URI || 'mongodb://127.0.0.1/rate-my-portfolio-app',
+
+  process.env.MONGODB_URI || 'mongodb://localhost/rate-my-portfolio-app',
 
   {
     useNewUrlParser: true,
