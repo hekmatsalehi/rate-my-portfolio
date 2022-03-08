@@ -33,7 +33,7 @@ const Portfolio = () => {
                 <img class="mx-auto w-full md:w-3/5 rounded-md" src={portfolioData.portfolioImage} />
                 <h1 class="mt-4 text-center">{portfolioData.portfolioText}</h1>
                 <div class="text-center p-4">
-                    <Link class="no-underline text-white border px-10 py-2 rounded bg-cyan-500 hover:bg-cyan-400" to={portfolioData.portfolioLink}>View Portfolio</Link>
+                    <a class="no-underline text-white border px-10 py-2 rounded bg-cyan-500 hover:bg-cyan-400" href={portfolioData.portfolioLink}>View Portfolio</a>
                     {/* <Card.Link href="#">Another Link</Card.Link> */}
                 </div>
             </div>

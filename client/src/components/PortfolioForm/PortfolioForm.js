@@ -76,7 +76,7 @@ const PortfolioForm = () => {
               <div className="form-group p-2">
                 <textarea
                   name="portfolioText"
-                  placeholder="Enter portfolio info..."
+                  placeholder="Enter Portfolio Title"
                   value={formState.portfolioText}
                   class="form-input rounded w-full md:w-2/5"
                   onChange={handleChange}
