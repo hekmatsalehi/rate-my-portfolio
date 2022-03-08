@@ -40,7 +40,7 @@ const FeedbackForm = ({ portfolioId }) => {
 
   return (
     <div class="w-screen md:w-2/3 mx-auto">
-      <h4>Feedbacks on this portfolio</h4>
+      <h4>Feedback on this portfolio</h4>
 
       {Auth.loggedIn() ? (
         <>

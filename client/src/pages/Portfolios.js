@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Portfolios(props) {
     const { loading, data } = useQuery(GET_ALL_PORTFOLIOS);
 
-    const portfolioData = data?.portfolios || {};
+    const portfolioData = data?.portfolios || [];
 
     if (loading) {
         return <h1>...LOADING</h1>;
