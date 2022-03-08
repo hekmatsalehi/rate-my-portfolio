@@ -12,7 +12,7 @@ Technologies such as Tailwind, React.js, Node.js, Express.js, MongoDb, JWT and G
 Clone the rate-my-portfolio repository to your local computer. Run ```npm install```, ```npm run install```, ```npm run seed``` and ```npm run develop``` in the command line (Win) or terminal (Mac) to install the dependencies and run the application.
 
 ![Application Screenshot](./client/src/images/screenshot.png)
- 
+[Link to the Deployed Application](https://floating-fjord-17758.herokuapp.com/)
 ## License
 This Application is covered under MITLicense
 
