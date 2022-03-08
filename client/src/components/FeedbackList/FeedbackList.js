@@ -1,36 +1,6 @@
 import React from 'react';
-import { REMOVE_FEEDBACK } from "../../utils/mutations";
-import { GET_ONE_PORTFOLIO } from "../../utils/queries";
-import { useMutation } from "@apollo/client";
 
 const FeedbackList = ({ feedbacks = [] }) => {
-  const [removeFeedback, { error }] = useMutation(REMOVE_FEEDBACK, {
-    update(cache, { data: { removeFeedback } }) {
-      try {
-        cache.writeQuery({
-          query: GET_ONE_PORTFOLIO,
-          data: { portfolio: removeFeedback },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
-  });
-
-  const handleRemoveFeedback = async (portfolioId, feedbackId) => {
-    try {
-      const { data } = await removeFeedback({
-        variables: { portfolioId, feedbackId },
-      });
-    } catch (err) {
-      console.error(err);
-    }
-    console.log(portfolioId, feedbackId);
-  };
-
-
-
-
   if (!feedbacks.length) {
     return <h3>No Feedback Yet</h3>;
   }
